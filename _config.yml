@@ -1,26 +1,16 @@
-# Welcome to Jekyll!
-#
-# This config file is meant for settings that affect your whole blog, values
-# which you are expected to set up once and rarely need to edit after that.
-# For technical reasons, this file is *NOT* reloaded automatically when you use
-# 'jekyll serve'. If you change this file, please restart the server process.
 
-# Site settings
-title: JeremyShannon.com
-email: jeremyeshannon@gmail.com
+title: Srikar Madarapu
+email: Madarapu.Srikar@gmail.com
 description:  #> # this means to ignore newlines until "baseurl:"
-  - Udacity Self-Driving Car Engineer Nanodegree October 2017 <br>
-  - MS in Electrical and Computer Engineering <br>
-  - 15 years experience as electronics engineer and computer scientist
+  - Udacity Self-Driving Car Engineer Nanodegree Term - 1 Feb 2019 <br>
+  - Bachelor's in Computer Science Engineering <br>
 baseurl: "" # the subpath of your site, e.g. /blog
 permalink: /:year/:month/:day/:title.html
-#PRODUCTION
-#url: "http://jeremyshannon.com" # the base hostname & protocol for your site
-#DEV
+
 url: "../" # the base hostname & protocol for your site
-twitter_username:  jeremy_and
-github_username:   jeremy-shannon
-linkedin_username: jeremyeshannon
+twitter_username:  Madarapu_srikar
+github_username:   srikar8
+linkedin_username: srikar8
 
 # Build settings
 markdown: kramdown
