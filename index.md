@@ -1,6 +1,22 @@
 ---
-# Feel free to add content and custom Front Matter to this file.
-# To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
-
-layout: home
+layout: default
 ---
+<div class="row">
+  <div class="col-sm-4 sidebar">
+    <div class="sidebar-content">
+    Hi there! My name is <span class="my-name">Srikar Madarapu</span> and I'm (forever) learning to become a self-driving car engineer. I have a bachelor's degree in computer science engineerin.<br>
+    </div>
+    <a class="sidebar-link" href="./about/">MORE ABOUT ME  &gt;&gt;</a>
+  </div>
+  <div class="main col-sm-8">
+    <h1 class="page-heading">Latest Blog Post:</h1>
+    <div class="blog-index">  
+      {% assign post = site.posts.first %}
+      {% assign content = post.content %}
+      {% include post_detail.html %}
+    </div>
+  </div>
+</div>
+<div class="row big-quote">
+  <em><span class="white-text">I hope to make a career for myself in the self-driving car industry.</span></em>
+</div>

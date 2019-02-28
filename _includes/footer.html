@@ -1,0 +1,54 @@
+<footer class="site-footer">
+  <hr>
+  <div class="row">
+    <div class="col-sm-2 headshot">
+      <img src="/images/Jeremy_BW_small.jpg">
+    </div>
+    <div class="col-sm-10">
+      <div class="post-title">
+        Jeremy Shannon: In a Nutshell
+      </div>
+      <div class="post-content">
+        {{ site.description }}
+      </div>
+      <div class="row social-media-list">
+        <div class="col-sm-4 col-lg-3">
+          {% if site.github_username %}
+            {% include icon-github.html username=site.github_username %}
+          {% endif %}
+        </div>
+        <div class="col-sm-4 col-lg-3">
+          {% if site.twitter_username %}
+            {% include icon-twitter.html username=site.twitter_username %}
+          {% endif %}
+        </div>          
+        <div class="col-sm-4 col-lg-3">
+          {% if site.linkedin_username %}
+            {% include icon-linkedin.html username=site.linkedin_username %}
+          {% endif %}
+        </div>      
+        <div class="col-lg-3">
+        </div> 
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="bottom-border-bg">
+    </div>
+    <div class="bottom-border">
+      Currently seeking employment in autonomous vehicles. <a href="mailto:{{ site.email }}">Contact me &gt;&gt;</a>
+    </div>
+  </div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-96521261-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</footer>
