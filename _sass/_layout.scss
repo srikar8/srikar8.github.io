@@ -26,12 +26,18 @@
     }
 }
 
+.site-title > a:hover{
+    color: #2ecc71;
+}
+
 .navbar-default .navbar-nav > li > a {
     color: #ffffff;
     line-height: $base-line-height;
     font-size: 1em; 
 }
-
+.navbar-default .navbar-nav > li > a:hover{
+    color: #2ecc71;
+}
 
 /**
  * Footer
