@@ -19,15 +19,15 @@
     margin-bottom: 0;
     padding-left: 5px;
     float: left;
-    color: #FFF;
+    color: #ffffff;
     &,
     &:visited {
-        color: #FFF;
+        color: #3a3a3a;
     }
 }
 
 .navbar-default .navbar-nav > li > a {
-    color: $brand-color;
+    color: #ffffff;
     line-height: $base-line-height;
     font-size: 1em; 
 }
