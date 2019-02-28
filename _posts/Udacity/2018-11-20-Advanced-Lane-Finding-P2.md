@@ -26,12 +26,12 @@ Advanced Lane Detection Project which includes advanced image processing to dete
  Open CV functions like findChessboardCorners(), drawChessboardCorners() and calibrateCamera() is used to find corners. Corners are Img_points to plot on the image. Img_points and Obj_points are used to calculate mtx and dist coefficients to undistort  the distorted images.
 ##### Calibrated Image with points drawn: 
 
-![output](https://github.com/srikar8/srikar8.github.io/blob/master/images/https://github.com/srikar8/srikar8.github.io/blob/master/images/Advanced-Lane-Finding-P2/output_result_0.jpg?raw=true)
+![output](https://github.com/srikar8/srikar8.github.io/blob/master/images/Udacity/Advanced-Lane-Finding-P2/output_result_0.jpg?raw=true)
 
 ##### Distortion Corrected Calibrated Image:
 
-![input](https://github.com/srikar8/srikar8.github.io/blob/master/images/Advanced-Lane-Finding-P2/distortion_not_corrected.jpg?raw=true)
-![input](https://github.com/srikar8/srikar8.github.io/blob/master/images/Advanced-Lane-Finding-P2/distortion_corrected.jpg?raw=true)
+![input](https://github.com/srikar8/srikar8.github.io/blob/master/images/Udacity/Advanced-Lane-Finding-P2/distortion_not_corrected.jpg?raw=true)
+![input](https://github.com/srikar8/srikar8.github.io/blob/master/images/Udacity/Advanced-Lane-Finding-P2/distortion_corrected.jpg?raw=true)
 
 
 
@@ -47,12 +47,12 @@ Undistort test_images folder, using cv2.undistort() output_images are saved to o
 
 #### These images are Distortion Corrected :
 
-![output_1](https://github.com/srikar8/srikar8.github.io/blob/master/images/Advanced-Lane-Finding-P2/output/test1.jpg?raw=true)
-![output_2](https://github.com/srikar8/srikar8.github.io/blob/master/images/Advanced-Lane-Finding-P2/output/test2.jpg?raw=true)
-![output_3](https://github.com/srikar8/srikar8.github.io/blob/master/images/Advanced-Lane-Finding-P2/output/test3.jpg?raw=true)
-![output_4](https://github.com/srikar8/srikar8.github.io/blob/master/images/Advanced-Lane-Finding-P2/output/test4.jpg?raw=true)
-![output_5](https://github.com/srikar8/srikar8.github.io/blob/master/images/Advanced-Lane-Finding-P2/output/test5.jpg?raw=true)
-![output_6](https://github.com/srikar8/srikar8.github.io/blob/master/images/Advanced-Lane-Finding-P2/output/test6.jpg?raw=true)
+![output_1](https://github.com/srikar8/srikar8.github.io/blob/master/images/Udacity/Advanced-Lane-Finding-P2/output/test1.jpg?raw=true)
+![output_2](https://github.com/srikar8/srikar8.github.io/blob/master/images/Udacity/Advanced-Lane-Finding-P2/output/test2.jpg?raw=true)
+![output_3](https://github.com/srikar8/srikar8.github.io/blob/master/images/Udacity/Advanced-Lane-Finding-P2/output/test3.jpg?raw=true)
+![output_4](https://github.com/srikar8/srikar8.github.io/blob/master/images/Udacity/Advanced-Lane-Finding-P2/output/test4.jpg?raw=true)
+![output_5](https://github.com/srikar8/srikar8.github.io/blob/master/images/Udacity/Advanced-Lane-Finding-P2/output/test5.jpg?raw=true)
+![output_6](https://github.com/srikar8/srikar8.github.io/blob/master/images/Udacity/Advanced-Lane-Finding-P2/output/test6.jpg?raw=true)
 
 
 #### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image. Provide an example of a binary image result.
@@ -62,10 +62,10 @@ Function undist_color_thresh_binary() will detect gradient threshold and  color 
 
 
 ### Input Image
-![output_1](https://github.com/srikar8/srikar8.github.io/blob/master/images/Advanced-Lane-Finding-P2/test1.jpg?raw=true)
+![output_1](https://github.com/srikar8/srikar8.github.io/blob/master/images/Udacity/Advanced-Lane-Finding-P2/test1.jpg?raw=true)
 
 ### Output Image
-![output_2](https://github.com/srikar8/srikar8.github.io/blob/master/images/Advanced-Lane-Finding-P2/color_gradient_thresholded.jpg?raw=true)
+![output_2](https://github.com/srikar8/srikar8.github.io/blob/master/images/Udacity/Advanced-Lane-Finding-P2/color_gradient_thresholded.jpg?raw=true)
 
 
 
@@ -76,7 +76,7 @@ Function perspective_transf() will do the following Perspective Transform is the
 Using src, dst point values the Perspective Transform is done. 	
 
 
-![output_1](https://github.com/srikar8/srikar8.github.io/blob/master/images/Advanced-Lane-Finding-P2/test_image_transformed_image.jpg?raw=true)
+![output_1](https://github.com/srikar8/srikar8.github.io/blob/master/images/Udacity/Advanced-Lane-Finding-P2/test_image_transformed_image.jpg?raw=true)
 
 
 
@@ -86,7 +86,7 @@ After getting Perspective Transform binary warped image, function fit_polynomial
 
 ### Finding the lines - Sliding Window and fitting a polynomial
 
-![output_1](https://github.com/srikar8/srikar8.github.io/blob/master/images/Advanced-Lane-Finding-P2/find_lane_pixels.jpg?raw=true)
+![output_1](https://github.com/srikar8/srikar8.github.io/blob/master/images/Udacity/Advanced-Lane-Finding-P2/find_lane_pixels.jpg?raw=true)
 
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
@@ -99,11 +99,11 @@ Function detect_lane_orginal() will transform back to the orginal image and plot
 
 ##### Lane Area Drawn without Information:
 
-![warp_detected_lane](https://github.com/srikar8/srikar8.github.io/blob/master/images/Advanced-Lane-Finding-P2/warp_detected_lane.jpg?raw=true)
+![warp_detected_lane](https://github.com/srikar8/srikar8.github.io/blob/master/images/Udacity/Advanced-Lane-Finding-P2/warp_detected_lane.jpg?raw=true)
 
 ##### Lane Area Drawn with Radius of Curvature and Central Offset:
 
-![lane_boundary_curvature_position](https://github.com/srikar8/srikar8.github.io/blob/master/images/Advanced-Lane-Finding-P2/lane_boundary_curvature_position.jpg?raw=true)
+![lane_boundary_curvature_position](https://github.com/srikar8/srikar8.github.io/blob/master/images/Udacity/Advanced-Lane-Finding-P2/lane_boundary_curvature_position.jpg?raw=true)
 
 
 # Pipeline (video)
@@ -111,7 +111,7 @@ Function detect_lane_orginal() will transform back to the orginal image and plot
 #### 1. Provide a link to your final video output. Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!)
 
 ##### Here is the Link to the Project Video 
-![video](https://github.com/srikar8/srikar8.github.io/blob/master/images/Advanced-Lane-Finding-P2/project_video_output.mp4)
+![video](https://github.com/srikar8/srikar8.github.io/blob/master/images/Udacity/Advanced-Lane-Finding-P2/project_video_output.mp4)
 
 
 
