@@ -1,40 +1,26 @@
 # Welcome to Jekyll!
 #
 # This config file is meant for settings that affect your whole blog, values
-# which you are expected to set up once and rarely edit after that. If you find
-# yourself editing this file very often, consider using Jekyll's data files
-# feature for the data you need to update frequently.
-#
+# which you are expected to set up once and rarely need to edit after that.
 # For technical reasons, this file is *NOT* reloaded automatically when you use
-# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
+# 'jekyll serve'. If you change this file, please restart the server process.
 
 # Site settings
-# These are used to personalize your new site. If you look in the HTML files,
-# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
-# You can create any custom variable you would like, and they will be accessible
-# in the templates via {{ site.myvariable }}.
-title: Srikar Madarapu
-email: Madarapu.Srikar@gmail.com
-description: >- # this means to ignore newlines until "baseurl:"
+title: JeremyShannon.com
+email: jeremyeshannon@gmail.com
+description:  #> # this means to ignore newlines until "baseurl:"
   - Udacity Self-Driving Car Engineer Nanodegree October 2017 <br>
   - MS in Electrical and Computer Engineering <br>
   - 15 years experience as electronics engineer and computer scientist
-baseurl: "srikar8" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: Madarapu_srikar
-github_username:  srikar8
+baseurl: "" # the subpath of your site, e.g. /blog
 permalink: /:year/:month/:day/:title.html
+#PRODUCTION
+#url: "http://jeremyshannon.com" # the base hostname & protocol for your site
+#DEV
+url: "../" # the base hostname & protocol for your site
+twitter_username:  jeremy_and
+github_username:   jeremy-shannon
+linkedin_username: jeremyeshannon
 
 # Build settings
 markdown: kramdown
-theme: minima
-plugins:
-  - jekyll-feed
-
-default:
-  - scope:
-      path: "assets/img"
-    values:
-      image: true
-
-
