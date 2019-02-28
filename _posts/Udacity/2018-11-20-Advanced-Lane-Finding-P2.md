@@ -111,7 +111,7 @@ Function detect_lane_orginal() will transform back to the orginal image and plot
 #### 1. Provide a link to your final video output. Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!)
 
 ##### Here is the Link to the Project Video 
-![video](https://github.com/srikar8/srikar8.github.io/blob/master/images/Udacity/Advanced-Lane-Finding-P2/project_video_output.mp4?raw=true)
+![video](https://youtu.be/6sYKu5J3KLI)
 
 
 
