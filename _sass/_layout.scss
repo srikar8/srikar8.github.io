@@ -1,0 +1,247 @@
+/**
+ * Site header
+ */
+.site-header > .navbar {
+    background-color: #020F48;
+    font-family: $secondary-font-family;
+    font-weight: $secondary-font-weight;
+    text-transform: uppercase;
+    //max-height: 45px;
+    margin-bottom: 50px;
+}
+
+.site-title {
+    //font-family: $secondary-font-family;
+    font-size: 1em;
+    font-weight: 300;
+    line-height: 56px;
+    letter-spacing: 0px;
+    margin-bottom: 0;
+    padding-left: 5px;
+    float: left;
+    color: #FFF;
+    &,
+    &:visited {
+        color: #FFF;
+    }
+}
+
+.navbar-default .navbar-nav > li > a {
+    color: $brand-color;
+    line-height: $base-line-height;
+    font-size: 1em; 
+}
+
+
+/**
+ * Footer
+ */
+
+footer > hr {
+    margin-bottom: 35px;
+    border-top: 1px solid $text-color;
+}
+
+.headshot {
+    margin: auto;
+    max-width: 200px;
+    img {
+        border-radius: 100%;
+    }
+}
+
+.social-media-list {
+    padding: 5px 0px;   
+    margin-bottom: 10px;
+    div > a > .username {
+        font-family: $secondary-font-family; 
+        font-weight: 300;
+        font-size: 1.2em;
+    }
+}
+
+.bottom-border {
+    position: absolute;
+    margin-top: 10px;
+    padding-top: 10px;
+    padding-left: -5px;
+    font-weight: 300;
+    z-index: 10;
+    font-family: $secondary-font-family;
+    font-size: 1em;
+    @include media-query($on-palm) {
+        font-size: 0.6em;
+    }
+    a {
+       text-transform: uppercase;
+    }
+    color: #FFF
+}
+
+.bottom-border-bg {
+    position: absolute;
+    right: 0;
+    background-color: $text-color;
+    height: 45px;
+    width: 100%;
+}
+
+/**
+ * Page content
+ */
+
+h4#my-resume {
+    font-family: $secondary-font-family; 
+    font-weight: 300;
+    font-size: 1.4em;
+}
+
+.page-content {
+    margin-top: 50px;
+    padding: $spacing-unit 0;
+}
+
+.page-heading {
+    font-size: 20px;
+    font-family: $secondary-font-family;
+}
+
+.post-list {
+    margin-left: 0;
+    list-style: none;
+
+    > li {
+        font-family: $secondary-font-family;
+        margin-bottom: $spacing-unit;
+        > .post-meta {
+            color: $text-color;
+            font-size: 1.0em;
+        }
+        > .post-link {
+            font-size: 1.1em;
+        }
+    }
+}
+
+.post-meta {
+    font-size: $small-font-size;
+    color: $brand-color;
+    font-family: $secondary-font-family;
+}
+
+.post-link {
+    display: block;
+    font-size: 24px;
+}
+
+.sidebar {
+    padding-bottom: 20px;
+}
+
+.sidebar-content {
+    font-weight: 700;
+    line-height: 1.6;
+    font-size: 1.4em;
+    @include media-query($on-laptop) {
+        font-size: 1.2em;
+    }
+    @include media-query($on-palm) {
+        font-size: 1.0em;
+    }
+}
+
+.sidebar-link {
+    font-family: $secondary-font-family;
+}
+
+.main {
+    margin-bottom: 20px;
+}
+.my-name {
+    color: $brand-color;
+}
+
+.big-quote {
+    display: block;
+    background-color: $brand-color;
+    padding: 1.5em;
+    margin: 30px 0px;
+    letter-spacing: 0px;
+    line-height: 1.6;
+    font-weight: 700;
+
+    font-size: 1.5em;
+    @include media-query($on-laptop) {
+        font-size: 1.2em;
+    }    
+    @include media-query($on-palm) {
+        font-size: 1.0em;
+    }
+}
+
+.white-text {
+    color: #FFF;
+}
+
+/**
+ * Posts
+ */
+.post-header {
+    margin-bottom: 3px; //$spacing-unit;
+}
+
+.post-title {
+    font-size: 1.8em;
+    letter-spacing: -1px;
+    line-height: 1;
+    font-weight: 700;
+    @include media-query($on-laptop) {
+        font-size: 1.4em;
+    }
+    margin-bottom: 10px;
+}
+
+.post-content {
+    margin-bottom: $spacing-unit;
+
+    h2 {
+        font-size: 32px;
+
+        @include media-query($on-laptop) {
+            font-size: 28px;
+        }
+    }
+
+    h3 {
+        font-size: 26px;
+
+        @include media-query($on-laptop) {
+            font-size: 22px;
+        }
+    }
+
+    h4 {
+        font-size: 20px;
+
+        @include media-query($on-laptop) {
+            font-size: 18px;
+        }
+    }
+}
+.PageNavigation {
+  font-size: 14px;
+  display: block;
+  width: auto;
+  overflow: hidden;
+}
+
+.PageNavigation a {
+  display: block;
+  width: 50%;
+  float: left;
+  margin: 1em 0;
+}
+
+.PageNavigation .next {
+  text-align: right;
+}
