@@ -112,7 +112,7 @@ Function detect_lane_orginal() will transform back to the orginal image and plot
 
 ##### Here is the Link to the Project Video 
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/6sYKu5J3KLI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/6sYKu5J3KLI"></iframe>
 
 
 
