@@ -1,3 +1,5 @@
+## Method 1
+
 ## Clone the Repository
 
 ```c++
@@ -20,7 +22,7 @@ $ cd /opt/intel/openvino_2019.1.144/deployment_tools/model_optimizer/extensions/
 
 #### Add below lines to yolo_v3.json file.
 
-#### **changed the classes according to the model.
+#### **changed the classes according to the trained model.
 
 ```json
 [
@@ -60,6 +62,36 @@ $ cd /opt/intel/openvino_2019.1.144/deployment_tools/model_optimizer
 > [ SUCCESS ] XML file: /opt/intel/openvino_2019.1.144/deployment_tools/model_optimizer/./frozen_darknet_yolov3_model.xml
 > [ SUCCESS ] BIN file: /opt/intel/openvino_2019.1.144/deployment_tools/model_optimizer/./frozen_darknet_yolov3_model.bin
 > [ SUCCESS ] Total execution time: 43.66 seconds.
+
+
+
+## Method 2
+
+Using Docker
+
+docker pull ubuntu:latest
+
+docker pull srikar8/openvino:latest
+
+### YOLOv3 Darknet to YOLOv3 TensorFlow Model
+
+
+```
+docker run --rm -v /home/srikar/Documents/srikar/Convert_Darknet_to_IR/Darknet_model:/app ubuntu:latest /bin/bash -c 'apt-get update; apt-get install -y git; git clone https://github.com/mystic123/tensorflow-yolo-v3.git; cd tensorflow-yolo-v3/; apt install -y python3-pip; pip3 install  numpy; pip3 install tensorflow==1.12.0; pip3 install  pillow; python3 convert_weights_pb.py --class_names /app/coco.names --data_format NHWC --weights_file /app/yolo-obj_3000.weights;cp frozen_darknet_yolov3_model.pb /app'
+
+```
+
+### Convert YOLOv3 TensorFlow Model to the IR
+
+```
+docker run --rm -v /home/srikar/Documents/srikar/Convert_Darknet_to_IR/Darknet_model:/app openvino:latest /bin/bash -c 'source /opt/intel/openvino/bin/setupvars.sh; cd app; sudo python3 /opt/intel/openvino_2019.1.144/deployment_tools/model_optimizer/mo_tf.py --input_model /app/frozen_darknet_yolov3_model.pb --tensorflow_use_custom_operations_config /app/yolo_v3.json --input_shape [1,416,416,3] --data_type FP32'
+```
+
+
+
+-----------
+
+
 
 
 
