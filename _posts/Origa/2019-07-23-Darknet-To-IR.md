@@ -1,10 +1,10 @@
-# Clone the Repository 
+## Clone the Repository
 
 ```c++
 $ git clone https://github.com/mystic123/tensorflow-yolo-v3.git
 ```
 
-# YOLOv3 Darknet to YOLOv3 TensorFlow Model
+### YOLOv3 Darknet to YOLOv3 TensorFlow Model
 
 ```c++
 $ cd tensorflow-yolo-v3/
@@ -12,7 +12,7 @@ $ cd tensorflow-yolo-v3/
 $ python3 convert_weights_pb.py --class_names /home/srikar/Documents/srikar/Convert_Darknet_to_IR/Darknet_model/coco.names --data_format NHWC --weights_file /home/srikar/Documents/srikar/Convert_Darknet_to_IR/Darknet_model/yolo-obj_3000.weights
 ```
 
-# Convert YOLOv3 TensorFlow Model to the IR
+### Convert YOLOv3 TensorFlow Model to the IR
 
 ```c++
 $ cd /opt/intel/openvino_2019.1.144/deployment_tools/model_optimizer/extensions/front/tf
