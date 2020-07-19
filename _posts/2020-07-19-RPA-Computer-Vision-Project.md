@@ -10,7 +10,7 @@ I had received them from @[SrikarRaoPhotography](https://srikarraophotography.co
 
 
 
-<img src="D:\blog_srikar\images\1.png" alt="alt" style="zoom: 25%;" />
+<img src="images\1.png" alt="alt" style="zoom: 25%;" />
 
 
 
@@ -50,7 +50,7 @@ Total time to process  400 Screenshots : **06:25:45 hrs**
 
 
 
-<img src="D:\blog_srikar\images\2.png" alt="alt" style="zoom: 67%;" />
+<img src="images\2.png" alt="alt" style="zoom: 67%;" />
 
 
 
