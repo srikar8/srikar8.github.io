@@ -8,6 +8,7 @@ I had received them from @[SrikarRaoPhotography](https://srikarraophotography.co
 
 
 
+
 <img src="https://srikar8.github.io/images/1.png" alt="alt" style="zoom: 25%;" />
 
 Using **RPA [UiPath](https://www.uipath.com/) Computer Vision Tool**, I had extracted data from all the screenshot images.
@@ -49,8 +50,12 @@ Total time to process  400 Screenshots : **06:25:45 hrs**
 
 
 
+### Thank God the screenshots are not handwriten because RPA UIPATH COMPUTER VISION TOOL FAILS THERE !!!
+1. Google Cloud Vision OCR Engine
+2. Microsoft OCR Engine
 
-Problem Solved ! 
+
+Problem Solved for now! 
 
 Cheers...!
 
