@@ -1,13 +1,11 @@
-# RPA Computer Vision Project  # 19/07/2020
+# Extract text from Screentshots to Excel
 
----
 
 There are set of screenshots in a folder. The text details present in screenshot has to be noted in an Excel separate columns. Which will be useful for further analysis of the data.
 
 I had received them from @[SrikarRaoPhotography](https://srikarraophotography.com/). They said they are too busy to manually enter each detail to Excel And it is super Important for them.
 
 
----
 
 
 <img src="https://srikar8.github.io/images/1.png" alt="alt" style="zoom: 25%;" />
