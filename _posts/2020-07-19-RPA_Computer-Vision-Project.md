@@ -1,0 +1,67 @@
+# RPA Computer Vision Project  # 19/07/2020
+
+
+
+#### There are set of screenshots in a folder. The text details present in screenshot has to be noted in an Excel separate columns. Which will be useful for further analysis of the data.
+
+
+
+I had received them from @[SrikarRaoPhotography](https://srikarraophotography.com/). They said they are too busy to manually enter each detail to Excel And it is super Important for them.
+
+
+
+<img src="D:\blog_srikar\images\1.png" alt="alt" style="zoom: 25%;" />
+
+
+
+
+
+Using **RPA [UiPath](https://www.uipath.com/) Computer Vision Tool**, I had extracted data from all the screenshot images.
+
+###### 1. Name Category
+
+###### 2. Type of Event
+
+###### 3. Party Time
+
+###### 4.  Duration
+
+###### 5. Format of Pictures
+
+###### 6. Approximate Budget
+
+###### 7. Date of the Party
+
+###### 8. Party Location
+
+
+
+Made a data table from the following data and stored in an Excel file.
+
+
+
+
+
+It took me approx. **30mins** to make the process run to complete the task.
+
+Total time to process  400 Screenshots : **06:25:45 hrs**
+
+#### ( Quite long time but fast than a human typing from each screenshot)
+
+
+
+<img src="D:\blog_srikar\images\2.png" alt="alt" style="zoom: 67%;" />
+
+
+
+
+
+Problem Solved ! 
+
+Cheers...!
+
+
+
+
+
+
