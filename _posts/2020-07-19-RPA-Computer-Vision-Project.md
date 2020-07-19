@@ -1,20 +1,16 @@
 # RPA Computer Vision Project  # 19/07/2020
 
+---
 
-
-#### There are set of screenshots in a folder. The text details present in screenshot has to be noted in an Excel separate columns. Which will be useful for further analysis of the data.
-
-
+There are set of screenshots in a folder. The text details present in screenshot has to be noted in an Excel separate columns. Which will be useful for further analysis of the data.
 
 I had received them from @[SrikarRaoPhotography](https://srikarraophotography.com/). They said they are too busy to manually enter each detail to Excel And it is super Important for them.
 
 
-
-<img src="..\images\1.png" alt="alt" style="zoom: 25%;" />
-
+---
 
 
-
+<img src="https://srikar8.github.io/images/1.png" alt="alt" style="zoom: 25%;" />
 
 Using **RPA [UiPath](https://www.uipath.com/) Computer Vision Tool**, I had extracted data from all the screenshot images.
 
@@ -50,7 +46,7 @@ Total time to process  400 Screenshots : **06:25:45 hrs**
 
 
 
-<img src="..\images\2.png" alt="alt" style="zoom: 67%;" />
+<img src="https://srikar8.github.io/images/2.png" alt="alt" style="zoom: 67%;" />
 
 
 
