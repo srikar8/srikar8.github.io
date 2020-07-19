@@ -12,21 +12,21 @@ I had received them from @[SrikarRaoPhotography](https://srikarraophotography.co
 
 Using **RPA [UiPath](https://www.uipath.com/) Computer Vision Tool**, I had extracted data from all the screenshot images.
 
-###### 1. Name Category
+**1. Name Category**
 
-###### 2. Type of Event
+**2. Type of Event**
 
-###### 3. Party Time
+**3. Party Time**
 
-###### 4.  Duration
+**4.  Duration**
 
-###### 5. Format of Pictures
+**5. Format of Pictures**
 
-###### 6. Approximate Budget
+**6. Approximate Budget**
 
-###### 7. Date of the Party
+**7. Date of the Party**
 
-###### 8. Party Location
+**8. Party Location**
 
 
 
