@@ -2,23 +2,23 @@
 title: Rpa Computer Vision Project
 description: Rpa Computer Vision Project
 pubDate: Jul 19 2020
-heroImage: /blog-placeholder-3.jpg
+heroImage: /1.jpg
 ---
 
-# Extract text from Screentshots to Excel
+## Extract text from Screentshots to Excel
+
+Background
+
+Recently, I had received them from @[SrikarRaoPhotography](https://srikarraophotography.com/).  They needed to extract detailed text from a set of screenshots and organize it into an Excel spreadsheet. Which will be useful for further analysis of the data. Manually entering these details would have been extremely time-consuming and labor-intensive, so automation was the obvious solution.
 
 
-There are set of screenshots in a folder. The text details present in screenshot has to be noted in an Excel separate columns. Which will be useful for further analysis of the data.
+<img src="/1.jpeg" alt="alt" style="zoom: 30%;" />
 
-I had received them from @[SrikarRaoPhotography](https://srikarraophotography.com/). They said they are too busy to manually enter each detail to Excel And it is super Important for them.
-
-
+## The Task
 
 
 
-<img src="https://srikar8.github.io/images/1.png" alt="alt" style="zoom: 25%;" />
-
-Using **RPA [UiPath](https://www.uipath.com/) Computer Vision Tool**, I had extracted data from all the screenshot images.
+The primary objective was to extract the following details from each screenshot:
 
 **1. Name Category**
 
@@ -36,25 +36,27 @@ Using **RPA [UiPath](https://www.uipath.com/) Computer Vision Tool**, I had extr
 
 **8. Party Location**
 
+Using **RPA [UiPath](https://www.uipath.com/) Computer Vision Tool**, I managed to automate the process efficiently.
+
+## The Solution
+
+## Tools and Techniques
+To tackle the problem, I utilized:
+UiPath Computer Vision Tool: This tool helped in accurately extracting the required data fields from the screenshots.
+Google Cloud Vision OCR Engine and Microsoft OCR Engine: These were used to enhance the accuracy of text extraction.
+
+## Process Overview
+Setup: Configured the UiPath workflow to identify and extract the specified data fields from each screenshot.
+Execution: Ran the automation process to extract data from all the screenshots and store it in an Excel file.
+Validation: Ensured the extracted data was accurate and organized correctly in the Excel file.
 
 
-Made a data table from the following data and stored in an Excel file.
+## Efficiency
+Total time to configure the process: 30 minutes
+Total time to process 400 screenshots: 6 hours 25 minutes and 45 seconds
+While the process took a considerable amount of time, it was significantly faster than manual data entry.
 
-
-
-
-
-It took me approx. **30mins** to make the process run to complete the task.
-
-Total time to process  400 Screenshots : **06:25:45 hrs**
-
-#### ( Quite long time but fast than a human typing from each screenshot)
-
-
-
-<img src="https://srikar8.github.io/images/2.png" alt="alt" style="zoom: 67%;" />
-
-
+<img src="/2.png" alt="alt" style="zoom: 67%;" />
 
 
 ### Thank God the screenshots are not handwriten because RPA UIPATH COMPUTER VISION TOOL FAILS THERE !!!

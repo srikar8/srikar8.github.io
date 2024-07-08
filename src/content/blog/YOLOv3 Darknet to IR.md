@@ -2,7 +2,7 @@
 title: YOLOv3 from Darknet to an IR format 
 description: YOLOv3 from Darknet to an IR format 
 pubDate: Jul 23 2019
-heroImage: /blog-placeholder-3.jpg
+heroImage: /yolov3.jpeg
 ---
 
 ## Method 1
