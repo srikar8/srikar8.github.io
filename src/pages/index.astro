@@ -1,0 +1,46 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { ActionError } from 'astro:actions';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header />
+		<main class="container">
+			<section id="about-me" class="row">
+				<div class="col-md-3">
+					<img src="/srikar.jpg" alt="Srikar Madarapu">
+				</div>
+				<div class="col-md-9">
+				  <h1 >Hey, I'm <span style="color: #2337ff">Srikar Madarapu.</span></h1>
+				  <h5 >Master's in Data Science (Computational Methods) <br>DePaul University, Chicago, IL</h5>
+				  <ul>
+					<li>Research Assistant at Visual Informatics and Data Analytics Lab under <a href="https://www.cdm.depaul.edu/Faculty-and-Staff/pages/faculty-info.aspx?fid=365"> Jacob Furst</a></li>
+					<li>Exploring the areas of Vision Language models and Diffusion models.</li>
+					<li>Conducted a comparative case study of Vision Transformers and CNNs</li>
+					<li>When I'm not immersed in data science and technology, I enjoy photography, playing board games, and going on road trips.</li>
+				  </ul>
+				  <p>Actively seeking a full-time position for <strong>Fall 2024</strong>.
+					<br> #MachineLearningEngineer #ComputerVisionEngineer #DataScientist #AISpecialist #DataEngineer #ResearchScientist #ResearchAnalyst #BusinessIntelligenceAnalyst #HealthDataAnalyst </p>
+				</div>
+
+			  </section>
+			
+			<section id="connect-with-me" class="row">
+				<p><br>Feel free to reach out to me via email at <a href="mailto:madarapu.srikar@gmail.com">madarapu.srikar@gmail.com</a>, or connect with me on <a href="http://linkedin.com/in/srikar8">LinkedIn</a> and <a href="http://github.com/srikar8">GitHub</a>.</p>
+			</section>
+		  
+			<section id="end_content" class="row">
+			  <p>Explore my website to learn more about my work, projects, and insights into the world of Machine Learning and technology. Thank you for visiting!</p>
+			</section>
+		  </main>		  
+		<Footer />
+	</body>
+</html>
