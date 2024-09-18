@@ -143,6 +143,13 @@ declare module 'astro:content' {
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
+"FashionMNIST_hyperparametertuning.md": {
+	id: "FashionMNIST_hyperparametertuning.md";
+  slug: "fashionmnist_hyperparametertuning";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
 "Rpa Computer Vision Project.md": {
 	id: "Rpa Computer Vision Project.md";
   slug: "rpa-computer-vision-project";
