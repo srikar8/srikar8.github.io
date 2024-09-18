@@ -153,9 +153,8 @@ show_images(train_loader)
 
 
     
-![png](/public/FashionMNIST_hyperparametertuning_files/FashionMNIST_hyperparametertuning_8_0.png)
+![png](/FashionMNIST_hyperparametertuning_files/FashionMNIST_hyperparametertuning_8_0.png)
     
-
 
 ### Objective Function (objective):
 1. The objective function generates a model and optimizer for each trial, trains the model, and evaluates it on a subset of validation data.
