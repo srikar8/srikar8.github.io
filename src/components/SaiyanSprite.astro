@@ -1,0 +1,111 @@
+---
+interface Props {
+	variant: 'gi' | 'armor';
+	class?: string;
+}
+
+const { variant, class: className } = Astro.props;
+
+// R = hair, S = skin, E = eye, M = mouth, O = gi, B = blue, W = white, Y = yellow
+const sprites: Record<Props['variant'], string[]> = {
+	gi: [
+		'..R....R....R.....',
+		'..RR..RRR..RR.....',
+		'...RRRRRRRRRR..R..',
+		'.RRRRRRRRRRRRRRR..',
+		'..RRRRRRRRRRRRR...',
+		'.RRRRSSSSSSSRRRR..',
+		'..RRSSSSSSSSSRR...',
+		'...RSSEESSEESSR...',
+		'....SSSSSSSSSS....',
+		'.....SSSMMSSS.....',
+		'......SSSSSS......',
+		'....OOOBBBBOOO....',
+		'...OOOOOBBOOOOO...',
+		'..SOOOOOOOOOOOOS..',
+		'..SSOOOOOOOOOOSS..',
+		'..SS.OOOOOOOO.SS..',
+		'..SS.BBBBBBBB.SS..',
+		'......OOOOOO......',
+		'.....OOOOOOOO.....',
+		'.....OOOO.OOOO....',
+		'.....OOO...OOO....',
+		'.....OOO...OOO....',
+		'.....BBB...BBB....',
+		'....BBBB...BBBB...',
+	],
+	armor: [
+		'........R.........',
+		'.......RRR........',
+		'......RRRRR.......',
+		'.....RRRRRRR......',
+		'....RRRRRRRRR.....',
+		'....RRRRRRRRR.....',
+		'....RRRSRSRRR.....',
+		'.....SSSSSSS......',
+		'.....SEESEES......',
+		'.....SSSSSSS......',
+		'......SSMSS.......',
+		'.......SSS........',
+		'...WWWWWWWWWWW....',
+		'..YWWWWWWWWWWWY...',
+		'..BBWWWWWWWWWBB...',
+		'..BB.WWWWWWW.BB...',
+		'..WW.BBBBBBB.WW...',
+		'..WW.BBBBBBB.WW...',
+		'.....BBBBBBB......',
+		'.....BBB.BBB......',
+		'.....BBB.BBB......',
+		'.....BBB.BBB......',
+		'.....WWW.WWW......',
+		'....WWWW.WWWW.....',
+	],
+};
+
+const colors: Record<string, string> = {
+	K: '#05070d',
+	S: '#f2c79a',
+	M: '#8a4b3a',
+	O: '#ff7a1a',
+	B: variant === 'gi' ? '#1f4fd1' : '#24308f',
+	W: '#eef1f7',
+	Y: '#ffd23f',
+};
+const classes: Record<string, string> = { R: 'hair', E: 'eye' };
+
+const rows = sprites[variant];
+const h = rows.length;
+const w = rows[0].length;
+const filled = (x: number, y: number) => y >= 0 && y < h && x >= 0 && x < w && rows[y][x] !== '.';
+
+const paths: Record<string, string[]> = {};
+const add = (c: string, x: number, y: number) => (paths[c] ||= []).push(`M${x} ${y}h1v1h-1z`);
+for (let y = -1; y <= h; y++) {
+	for (let x = -1; x <= w; x++) {
+		if (filled(x, y)) add(rows[y][x], x, y);
+		else if (filled(x + 1, y) || filled(x - 1, y) || filled(x, y + 1) || filled(x, y - 1)) add('K', x, y);
+	}
+}
+---
+
+<svg
+	viewBox={`-1 -1 ${w + 2} ${h + 2}`}
+	class:list={['saiyan', className]}
+	shape-rendering="crispEdges"
+	aria-hidden="true"
+>
+	{Object.entries(paths).map(([c, d]) => <path d={d.join('')} fill={colors[c]} class={classes[c]} />)}
+</svg>
+
+<style>
+	.saiyan {
+		display: block;
+		overflow: visible;
+	}
+	.hair {
+		fill: #14161d;
+	}
+	.eye {
+		fill: #14161d;
+	}
+</style>

@@ -1,0 +1,449 @@
+---
+import SaiyanSprite from './SaiyanSprite.astro';
+---
+
+<dialog id="saiyan-transform" aria-labelledby="transform-title">
+	<div class="t-stage">
+		<button class="skip mono" type="button" data-skip>Skip ↗</button>
+		<p class="eyebrow" id="transform-title">Powering up</p>
+
+		<div class="arena" aria-hidden="true">
+			<span class="flash"></span>
+			<span class="aura">
+				<i></i><i></i><i></i>
+			</span>
+			<span class="streaks">
+				<i style="--x:-62px;--d:0s"></i>
+				<i style="--x:-30px;--d:0.25s"></i>
+				<i style="--x:8px;--d:0.1s"></i>
+				<i style="--x:40px;--d:0.35s"></i>
+				<i style="--x:66px;--d:0.18s"></i>
+			</span>
+			<span class="fighter">
+				<SaiyanSprite variant="gi" class="f-gi" />
+				<SaiyanSprite variant="armor" class="f-armor" />
+			</span>
+			<span class="ground"></span>
+			<span class="rocks">
+				<i style="--x:-90px;--r:-40deg;--s:9px;--d:0.2s"></i>
+				<i style="--x:-55px;--r:25deg;--s:6px;--d:0.5s"></i>
+				<i style="--x:60px;--r:-15deg;--s:8px;--d:0.35s"></i>
+				<i style="--x:95px;--r:40deg;--s:5px;--d:0.6s"></i>
+				<i style="--x:-110px;--r:10deg;--s:5px;--d:0.75s"></i>
+				<i style="--x:115px;--r:-30deg;--s:7px;--d:0.15s"></i>
+			</span>
+		</div>
+
+		<p class="power mono"><span class="power-k">POWER LEVEL</span> <span data-power>0005</span></p>
+		<p class="t-msg" aria-live="polite">
+			<strong>Super Saiyan</strong>
+			<small class="mono" data-sub>Model upgrades unlocked</small>
+		</p>
+	</div>
+</dialog>
+
+<script>
+	const dialog = document.getElementById('saiyan-transform') as HTMLDialogElement;
+	const power = dialog.querySelector<HTMLElement>('[data-power]')!;
+	const sub = dialog.querySelector<HTMLElement>('[data-sub]')!;
+	const DURATION = 3600;
+	const SURGE = 1700;
+	let timer: number | undefined;
+	let raf = 0;
+	let target: string | null = null;
+
+	const still = () =>
+		window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+		document.documentElement.classList.contains('plain');
+
+	function finish() {
+		clearTimeout(timer);
+		cancelAnimationFrame(raf);
+		if (dialog.open) dialog.close();
+		document.body.classList.remove('modal-open');
+		if (target) document.querySelector(target)?.scrollIntoView({ behavior: still() ? 'auto' : 'smooth' });
+		target = null;
+	}
+
+	function countUp() {
+		const start = performance.now();
+		const tick = (t: number) => {
+			const p = Math.min((t - start) / SURGE, 1);
+			if (p < 1) {
+				power.textContent = String(Math.floor(5 + Math.pow(p, 3) * 8990)).padStart(4, '0');
+				raf = requestAnimationFrame(tick);
+			} else {
+				power.textContent = "IT'S OVER 9000!";
+			}
+		};
+		raf = requestAnimationFrame(tick);
+	}
+
+	function open(pack: string, href: string) {
+		target = href;
+		if (still() || typeof dialog.showModal !== 'function') return finish();
+		const journey = pack === 'journey';
+		dialog.dataset.kind = journey ? 'gi' : 'armor';
+		sub.textContent = journey ? 'Model upgrades unlocked' : 'Android lineup unlocked';
+		power.textContent = '0005';
+		dialog.classList.remove('playing');
+		dialog.showModal();
+		document.body.classList.add('modal-open');
+		void dialog.offsetWidth;
+		dialog.classList.add('playing');
+		countUp();
+		timer = window.setTimeout(finish, DURATION);
+	}
+
+	document.querySelectorAll<HTMLAnchorElement>('[data-pack]').forEach((el) =>
+		el.addEventListener('click', (e) => {
+			e.preventDefault();
+			open(el.dataset.pack ?? 'journey', el.getAttribute('href') ?? '#upgrades');
+		})
+	);
+	dialog.querySelector('[data-skip]')!.addEventListener('click', finish);
+	dialog.addEventListener('cancel', (e) => {
+		e.preventDefault();
+		finish();
+	});
+</script>
+
+<style>
+	dialog {
+		width: 100vw;
+		height: 100vh;
+		max-width: none;
+		max-height: none;
+		margin: 0;
+		padding: 0;
+		border: 0;
+		background: transparent;
+		color: var(--text);
+		overflow: hidden;
+	}
+	dialog::backdrop {
+		background: rgba(3, 5, 12, 0.94);
+		backdrop-filter: blur(4px);
+	}
+	:global(body.modal-open) {
+		overflow: hidden;
+	}
+	.t-stage {
+		position: relative;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 0.6rem;
+		text-align: center;
+	}
+	.skip {
+		position: absolute;
+		top: 1.2rem;
+		right: 1.2rem;
+		padding: 0.5em 1em;
+		border-radius: 999px;
+		border: 1px solid var(--line-strong);
+		background: transparent;
+		color: var(--text);
+		font-size: 0.8rem;
+		cursor: pointer;
+		z-index: 2;
+	}
+	.skip:hover {
+		color: var(--heading);
+		border-color: var(--orange);
+	}
+
+	.arena {
+		position: relative;
+		width: 320px;
+		height: 300px;
+	}
+	.arena > * {
+		position: absolute;
+		left: 50%;
+	}
+	.fighter {
+		bottom: 34px;
+		width: 132px;
+		margin-left: -66px;
+		z-index: 2;
+	}
+	.fighter :global(.saiyan) {
+		width: 132px;
+		height: auto;
+		filter: drop-shadow(0 6px 0 rgba(0, 0, 0, 0.5));
+	}
+	.fighter :global(.f-armor),
+	dialog[data-kind='armor'] .fighter :global(.f-gi) {
+		display: none;
+	}
+	dialog[data-kind='armor'] .fighter :global(.f-armor) {
+		display: block;
+	}
+	.fighter :global(.hair),
+	.fighter :global(.eye) {
+		transition: fill 0.12s;
+	}
+
+	.ground {
+		bottom: 22px;
+		width: 220px;
+		height: 22px;
+		margin-left: -110px;
+		border-radius: 50%;
+		background: radial-gradient(ellipse, rgba(255, 210, 63, 0.35), transparent 70%);
+		opacity: 0;
+	}
+
+	.aura {
+		bottom: 20px;
+		width: 210px;
+		height: 260px;
+		margin-left: -105px;
+		opacity: 0;
+		z-index: 1;
+	}
+	.aura i {
+		position: absolute;
+		inset: 0;
+		border-radius: 50% 50% 46% 46% / 64% 64% 36% 36%;
+		background: radial-gradient(ellipse at 50% 70%, rgba(255, 255, 255, 0.9), rgba(255, 220, 90, 0.75) 30%, rgba(255, 170, 30, 0.35) 55%, transparent 70%);
+		filter: blur(2px);
+		transform-origin: 50% 100%;
+	}
+	.aura i:nth-child(2) {
+		inset: 10% 16% 0;
+		clip-path: polygon(50% 0, 62% 22%, 80% 8%, 76% 36%, 100% 30%, 86% 60%, 100% 100%, 0 100%, 14% 60%, 0 30%, 24% 36%, 20% 8%, 38% 22%);
+		background: linear-gradient(to top, rgba(255, 255, 255, 0.95), rgba(255, 214, 70, 0.9) 45%, rgba(255, 170, 30, 0));
+		filter: none;
+	}
+	.aura i:nth-child(3) {
+		inset: -8% -10% 0;
+		opacity: 0.5;
+	}
+
+	.streaks,
+	.rocks {
+		bottom: 0;
+		z-index: 3;
+	}
+	.streaks i {
+		position: absolute;
+		bottom: 30px;
+		left: var(--x);
+		width: 3px;
+		height: 60px;
+		border-radius: 2px;
+		background: linear-gradient(to top, transparent, #fff8c9, transparent);
+		opacity: 0;
+	}
+	.rocks i {
+		position: absolute;
+		bottom: 26px;
+		left: var(--x);
+		width: var(--s);
+		height: var(--s);
+		background: #6b6f7d;
+		box-shadow: inset -2px -2px 0 #3d404b;
+		opacity: 0;
+	}
+	.flash {
+		top: 40%;
+		width: 40px;
+		height: 40px;
+		margin-left: -20px;
+		border-radius: 50%;
+		background: #fff;
+		opacity: 0;
+		z-index: 3;
+	}
+
+	.power {
+		margin: 0;
+		font-size: 0.95rem;
+		letter-spacing: 0.12em;
+		color: var(--heading);
+	}
+	.power-k {
+		color: var(--muted);
+		margin-right: 0.4em;
+	}
+	[data-power] {
+		display: inline-block;
+		min-width: 4ch;
+		color: var(--yellow);
+		font-weight: 700;
+	}
+	.t-msg {
+		margin: 0;
+		min-height: 4rem;
+		opacity: 0;
+	}
+	.t-msg strong {
+		display: block;
+		font-family: var(--font-display);
+		font-weight: 400;
+		font-size: clamp(2.6rem, 8vw, 4rem);
+		line-height: 1;
+		letter-spacing: 0.04em;
+		color: var(--yellow);
+		text-shadow:
+			3px 3px 0 #c4520a,
+			0 0 30px rgba(255, 210, 63, 0.6);
+	}
+	.t-msg small {
+		color: var(--cyan);
+		letter-spacing: 0.12em;
+		font-size: 0.78rem;
+	}
+
+	/* Charge: 0 – 1.7s, surge at 1.7s */
+	.playing .arena {
+		animation: quake 0.09s linear 0.3s 15, quake-big 0.06s linear 1.7s 8;
+	}
+	.playing .fighter {
+		animation: crouch 1.4s ease-in 0.3s forwards, rise 0.3s ease-out 1.7s forwards;
+	}
+	.playing .rocks i {
+		animation: lift 1.6s ease-out var(--d) forwards;
+	}
+	.playing .streaks i {
+		animation: streak 0.5s linear calc(1.75s + var(--d)) 4;
+	}
+	.playing .flash {
+		animation: surge 0.6s ease-out 1.65s forwards;
+	}
+	.playing .aura {
+		animation:
+			aura-in 0.25s ease-out 1.7s forwards,
+			aura-pulse 0.32s ease-in-out 1.95s infinite alternate;
+	}
+	.playing .aura i:nth-child(2) {
+		animation: flicker 0.18s steps(2) 1.7s infinite;
+	}
+	.playing .ground {
+		animation: aura-in 0.25s ease-out 1.7s forwards;
+	}
+	.playing .fighter :global(.hair) {
+		animation: to-gold 0.01s linear 1.72s forwards;
+	}
+	.playing .fighter :global(.eye) {
+		animation: to-teal 0.01s linear 1.72s forwards;
+	}
+	.playing .t-msg {
+		animation: msg-in 0.35s cubic-bezier(0.2, 1.6, 0.5, 1) 1.95s forwards;
+	}
+
+	@keyframes quake {
+		25% {
+			transform: translate(-2px, 1px);
+		}
+		75% {
+			transform: translate(2px, -1px);
+		}
+	}
+	@keyframes quake-big {
+		25% {
+			transform: translate(-6px, 3px);
+		}
+		75% {
+			transform: translate(6px, -3px);
+		}
+	}
+	@keyframes crouch {
+		to {
+			transform: translateY(6px) scaleY(0.96);
+		}
+	}
+	@keyframes rise {
+		from {
+			transform: translateY(6px) scaleY(0.96);
+		}
+		to {
+			transform: translateY(-6px);
+		}
+	}
+	@keyframes lift {
+		0% {
+			opacity: 0;
+			transform: translateY(0) rotate(0);
+		}
+		20% {
+			opacity: 1;
+		}
+		100% {
+			opacity: 0.9;
+			transform: translateY(-150px) rotate(var(--r));
+		}
+	}
+	@keyframes streak {
+		0% {
+			opacity: 0;
+			transform: translateY(0);
+		}
+		30% {
+			opacity: 1;
+		}
+		100% {
+			opacity: 0;
+			transform: translateY(-200px);
+		}
+	}
+	@keyframes surge {
+		0% {
+			opacity: 0;
+			transform: scale(1);
+		}
+		15% {
+			opacity: 1;
+			transform: scale(30);
+		}
+		100% {
+			opacity: 0;
+			transform: scale(40);
+		}
+	}
+	@keyframes aura-in {
+		from {
+			opacity: 0;
+			transform: scale(0.4);
+		}
+		to {
+			opacity: 1;
+			transform: none;
+		}
+	}
+	@keyframes aura-pulse {
+		to {
+			transform: scale(1.05, 1.08);
+		}
+	}
+	@keyframes flicker {
+		50% {
+			transform: scaleY(1.08) scaleX(0.95);
+		}
+	}
+	@keyframes to-gold {
+		to {
+			fill: #ffd23f;
+		}
+	}
+	@keyframes to-teal {
+		to {
+			fill: #1fb5a8;
+		}
+	}
+	@keyframes msg-in {
+		from {
+			opacity: 0;
+			transform: scale(1.6);
+		}
+		to {
+			opacity: 1;
+			transform: none;
+		}
+	}
+</style>

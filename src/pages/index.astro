@@ -4,6 +4,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import SectionHead from '../components/SectionHead.astro';
 import FormattedDate from '../components/FormattedDate.astro';
+import SaiyanTransform from '../components/SaiyanTransform.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import { getCollection } from 'astro:content';
 import {
@@ -117,7 +118,7 @@ const diagnostics = [
 					guide="Hi, I'm Unit 16. Two ways in: where Srikar has worked, or the things that got built."
 				/>
 				<div class="capsules">
-					<a class="capsule reveal" href="#upgrades">
+					<a class="capsule reveal" href="#upgrades" data-pack="journey">
 						<span class="cap deco" aria-hidden="true"><span class="cap-l"></span><span class="cap-r"></span><span class="cap-btn"></span></span>
 						<span class="cap-meta mono">THE UPGRADE SERIES · 0{upgrades.length} versions</span>
 						<span class="cap-title display">
@@ -125,7 +126,7 @@ const diagnostics = [
 						</span>
 						<span class="cap-sub">Where I've worked and what I shipped at each stop.</span>
 					</a>
-					<a class="capsule capsule-b reveal" href="#androids">
+					<a class="capsule capsule-b reveal" href="#androids" data-pack="projects">
 						<span class="cap deco" aria-hidden="true"><span class="cap-l"></span><span class="cap-r"></span><span class="cap-btn"></span></span>
 						<span class="cap-meta mono">THE BUILDER SERIES · 0{androids.length} units</span>
 						<span class="cap-title display">
@@ -346,6 +347,7 @@ const diagnostics = [
 				</div>
 			</section>
 		</main>
+		<SaiyanTransform />
 		<Footer />
 
 		<script>
