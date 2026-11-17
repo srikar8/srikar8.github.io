@@ -115,16 +115,16 @@ const diagnostics = [
 					eyebrow="Choose a path"
 					title="Two capsules. One engineer."
 					plainTitle="Explore"
-					guide="Two ways in: where I've worked, or what I've built."
+					guide="Open a capsule: walk Goku's journey through my career, or jump straight to projects."
 				/>
 				<div class="capsules">
 					<a class="capsule reveal" href="#upgrades" data-pack="journey">
 						<span class="cap deco" aria-hidden="true"><span class="cap-l"></span><span class="cap-r"></span><span class="cap-btn"></span></span>
-						<span class="cap-meta mono">0{upgrades.length} roles · 2017 – now</span>
+						<span class="cap-meta mono">0{upgrades.length} forms · 2017 – now</span>
 						<span class="cap-title display">
-							Experience
+							<span class="t-theme">Goku's journey</span><span class="t-plain">Experience</span>
 						</span>
-						<span class="cap-sub">Where I've worked and what I shipped at each stop.</span>
+						<span class="cap-sub">Seven roles. Seven transformations. Where I've worked and what I shipped.</span>
 					</a>
 					<a class="capsule capsule-b reveal" href="#androids" data-pack="projects">
 						<span class="cap deco" aria-hidden="true"><span class="cap-l"></span><span class="cap-r"></span><span class="cap-btn"></span></span>
@@ -137,34 +137,45 @@ const diagnostics = [
 				</div>
 			</section>
 
-			<!-- EXPERIENCE -->
+			<!-- EXPERIENCE / GOKU'S JOURNEY -->
 			<section id="upgrades" class="upgrades">
 				<SectionHead
 					index="01"
 					eyebrow="Where I've worked"
-					title="Experience"
+					title="Goku's journey"
 					plainTitle="Experience"
-					guide="Newest first. Click a role to see what I shipped."
+					guide="Seven roles. Seven forms. Newest first — click a stop to see what I shipped."
 				/>
-				<ol class="timeline">
+				<ol class="timeline journey">
 					{
 						upgrades.map((u, i) => (
-							<li class="release reveal">
+							<li class="release reveal" style={`--aura:${u.form.aura}`}>
 								<div class="node" aria-hidden="true">
-									<span class="display">'{u.model}</span>
+									<img class="form-art deco" src={u.form.img} alt="" width="72" height="72" loading="lazy" />
+									<span class="display year t-plain">'{u.model}</span>
 								</div>
 								<details class="release-card panel" open={i === 0}>
 									<summary>
 										<span class="rel-top mono">
 											<span class="model">{u.period}</span>
+											<span class="form-tag deco" style={`--aura:${u.form.aura}`}>
+												{u.form.short}
+											</span>
 											{i === 0 && <span class="live">● CURRENT</span>}
 										</span>
 										<span class="role">{u.role}</span>
 										<span class="org">
 											{u.org} · {u.location}
 										</span>
-										<span class="codename mono">{u.codename}</span>
+										<span class="codename mono">
+											<span class="t-theme">{u.form.name} · </span>
+											{u.codename}
+										</span>
 									</summary>
+									<figure class="form-figure deco">
+										<img src={u.form.img} alt={`${u.form.name} artwork`} width="180" height="280" loading="lazy" />
+										<figcaption class="mono">{u.form.name}</figcaption>
+									</figure>
 									<ul class="changelog">
 										{u.changelog.map((c) => <li>{c}</li>)}
 									</ul>
@@ -767,22 +778,64 @@ const diagnostics = [
 				display: grid;
 				place-items: center;
 				background: var(--panel-solid);
-				border: 2px solid var(--cyan);
+				border: 2px solid color-mix(in srgb, var(--aura, var(--cyan)) 70%, #fff 10%);
 				color: var(--heading);
 				font-size: 1.4rem;
-				box-shadow: var(--glow-cyan);
+				box-shadow: 0 0 18px color-mix(in srgb, var(--aura, var(--cyan)) 45%, transparent);
+				overflow: hidden;
 			}
 			.release:first-child .node {
-				border-color: var(--orange);
-				box-shadow: var(--glow-orange);
+				border-color: var(--aura, var(--orange));
 			}
-			:global(html.plain) .node span {
+			.form-art {
+				width: 100%;
+				height: 100%;
+				object-fit: contain;
+				object-position: center top;
+				padding: 4px 2px 0;
+				filter: drop-shadow(0 2px 0 rgba(0, 0, 0, 0.35));
+			}
+			.node .year {
 				font-size: 1rem;
 				font-weight: 700;
+			}
+			:global(html.plain) .node {
+				border-color: var(--line-strong);
+				box-shadow: none;
 			}
 			.release-card {
 				padding: 0;
 				overflow: hidden;
+			}
+			.form-tag {
+				color: color-mix(in srgb, var(--aura, var(--orange)) 85%, #fff);
+				border: 1px solid color-mix(in srgb, var(--aura, var(--orange)) 55%, transparent);
+				padding: 0.1em 0.55em;
+				border-radius: 999px;
+				letter-spacing: 0.1em;
+			}
+			.form-figure {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				gap: 0.35rem;
+				margin: 0;
+				padding: 0.75rem 1.3rem 0.25rem;
+				border-top: 1px dashed var(--line);
+				background:
+					radial-gradient(ellipse at 50% 80%, color-mix(in srgb, var(--aura, var(--orange)) 22%, transparent), transparent 65%),
+					rgba(0, 0, 0, 0.18);
+			}
+			.form-figure img {
+				width: auto;
+				height: 200px;
+				object-fit: contain;
+				filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.45));
+			}
+			.form-figure figcaption {
+				font-size: 0.72rem;
+				letter-spacing: 0.14em;
+				color: color-mix(in srgb, var(--aura, var(--yellow)) 80%, #fff);
 			}
 			summary {
 				display: flex;
@@ -850,6 +903,9 @@ const diagnostics = [
 				margin: 0;
 				padding: 0.25rem 1.3rem 1.2rem;
 				border-top: 1px dashed var(--line);
+			}
+			details[open] .form-figure + .changelog {
+				border-top: 0;
 			}
 			.changelog li {
 				position: relative;

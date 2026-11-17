@@ -1,6 +1,7 @@
 ---
-import { profile } from '../data/resume';
+import { profile, upgrades } from '../data/resume';
 const today = new Date();
+const forms = [...upgrades].reverse().map((u) => u.form);
 ---
 
 <footer>
@@ -14,6 +15,7 @@ const today = new Date();
 			<a href={profile.linkedin} target="_blank" rel="noopener">LinkedIn</a>
 			<a href={profile.github} target="_blank" rel="noopener">GitHub</a>
 			<a href={profile.resume} target="_blank">Resume</a>
+			<button class="credit-btn deco" type="button" data-credits>Sprite credits</button>
 		</p>
 		<p class="fine">
 			&copy; {today.getFullYear()} {profile.name}. Fan-inspired design; Dragon Ball Z and its characters belong to their
@@ -21,6 +23,48 @@ const today = new Date();
 		</p>
 	</div>
 </footer>
+
+<dialog id="sprite-credits" aria-labelledby="credits-title">
+	<div class="credits-panel">
+		<button class="x" type="button" data-close-credits aria-label="Close">×</button>
+		<h2 id="credits-title" class="display">Sprite credits</h2>
+		<p>
+			Goku transformation art on this site comes from the community
+			<a href="https://web.dragonball-api.com/" target="_blank" rel="noopener">Dragon Ball API</a>
+			(transparent WebP renders). Dragon Ball, Dragon Ball Z, and related characters are trademarks of
+			Toei Animation / Bird Studio / Shueisha. This portfolio is a fan tribute and is not affiliated with them.
+		</p>
+		<ul class="credit-forms">
+			{
+				forms.map((f) => (
+					<li>
+						<img src={f.img} alt="" width="48" height="72" loading="lazy" />
+						<span>
+							<strong>{f.name}</strong>
+							<small class="mono">{f.short}</small>
+						</span>
+					</li>
+				))
+			}
+		</ul>
+		<p class="fine">
+			Inspired by interactive portfolios like
+			<a href="https://yash-kumar.link/" target="_blank" rel="noopener">yash-kumar.link</a>.
+		</p>
+	</div>
+</dialog>
+
+<script>
+	const dlg = document.getElementById('sprite-credits') as HTMLDialogElement | null;
+	const openBtn = document.querySelector<HTMLButtonElement>('[data-credits]');
+	if (dlg && openBtn && typeof dlg.showModal === 'function') {
+		openBtn.addEventListener('click', () => dlg.showModal());
+		dlg.querySelector('[data-close-credits]')?.addEventListener('click', () => dlg.close());
+		dlg.addEventListener('click', (e) => {
+			if (e.target === dlg) dlg.close();
+		});
+	}
+</script>
 
 <style>
 	footer {
@@ -54,13 +98,21 @@ const today = new Date();
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: center;
+		align-items: center;
 		gap: 0.5rem 1.5rem;
 	}
-	.links a {
+	.links a,
+	.credit-btn {
 		color: var(--text);
 		text-decoration: none;
+		background: none;
+		border: 0;
+		padding: 0;
+		font: inherit;
+		cursor: pointer;
 	}
-	.links a:hover {
+	.links a:hover,
+	.credit-btn:hover {
 		color: var(--orange);
 	}
 	.fine {
@@ -72,5 +124,82 @@ const today = new Date();
 		50% {
 			opacity: 0.3;
 		}
+	}
+
+	dialog#sprite-credits {
+		width: min(520px, calc(100vw - 2rem));
+		padding: 0;
+		border: 1px solid var(--line-strong);
+		border-radius: var(--radius);
+		background: var(--panel-solid);
+		color: var(--text);
+		box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55);
+	}
+	dialog#sprite-credits::backdrop {
+		background: rgba(3, 5, 12, 0.72);
+	}
+	.credits-panel {
+		position: relative;
+		padding: 1.5rem 1.5rem 1.25rem;
+		text-align: left;
+	}
+	.credits-panel h2 {
+		margin: 0 0 0.6rem;
+		font-size: 1.8rem;
+		color: var(--heading);
+	}
+	.credits-panel p {
+		margin: 0 0 1rem;
+		font-size: 0.92rem;
+	}
+	.credits-panel a {
+		color: var(--cyan);
+	}
+	.x {
+		position: absolute;
+		top: 0.6rem;
+		right: 0.7rem;
+		width: 2rem;
+		height: 2rem;
+		border: 0;
+		border-radius: 50%;
+		background: transparent;
+		color: var(--muted);
+		font-size: 1.4rem;
+		cursor: pointer;
+	}
+	.x:hover {
+		color: var(--heading);
+	}
+	.credit-forms {
+		list-style: none;
+		margin: 0 0 1rem;
+		padding: 0;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 0.55rem;
+	}
+	.credit-forms li {
+		display: flex;
+		align-items: center;
+		gap: 0.55rem;
+		padding: 0.35rem 0.5rem;
+		border-radius: 10px;
+		border: 1px solid var(--line);
+		background: rgba(63, 242, 255, 0.04);
+	}
+	.credit-forms img {
+		width: 36px;
+		height: 54px;
+		object-fit: contain;
+	}
+	.credit-forms strong {
+		display: block;
+		font-size: 0.85rem;
+		color: var(--heading);
+	}
+	.credit-forms small {
+		color: var(--muted);
+		letter-spacing: 0.08em;
 	}
 </style>
