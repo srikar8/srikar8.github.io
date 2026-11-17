@@ -176,10 +176,6 @@ const diagnostics = [
 													{u.codename}
 												</span>
 											</summary>
-											<figure class="form-figure deco">
-												<img src={u.form.img} alt={`${u.form.name} artwork`} width="180" height="280" loading="lazy" />
-												<figcaption class="mono">{u.form.name}</figcaption>
-											</figure>
 											<ul class="changelog">
 												{u.changelog.map((c) => <li>{c}</li>)}
 											</ul>
@@ -213,12 +209,6 @@ const diagnostics = [
 												{e.codename}
 											</span>
 										</summary>
-										<figure class="form-figure deco">
-											<img src={e.place.img} alt={`${e.place.mentor} artwork`} width="180" height="280" loading="lazy" />
-											<figcaption class="mono">
-												{e.place.name} · {e.place.mentor}
-											</figcaption>
-										</figure>
 										<ul class="changelog">
 											{e.changelog.map((c) => <li>{c}</li>)}
 										</ul>
@@ -871,29 +861,6 @@ const diagnostics = [
 			.train-card summary:hover {
 				background: color-mix(in srgb, var(--aura, var(--green)) 8%, transparent);
 			}
-			.form-figure {
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-				gap: 0.35rem;
-				margin: 0;
-				padding: 0.75rem 1.3rem 0.25rem;
-				border-top: 1px dashed var(--line);
-				background:
-					radial-gradient(ellipse at 50% 80%, color-mix(in srgb, var(--aura, var(--orange)) 22%, transparent), transparent 65%),
-					rgba(0, 0, 0, 0.18);
-			}
-			.form-figure img {
-				width: auto;
-				height: 200px;
-				object-fit: contain;
-				filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.45));
-			}
-			.form-figure figcaption {
-				font-size: 0.72rem;
-				letter-spacing: 0.14em;
-				color: color-mix(in srgb, var(--aura, var(--yellow)) 80%, #fff);
-			}
 			summary {
 				display: flex;
 				flex-direction: column;
@@ -960,9 +927,6 @@ const diagnostics = [
 				margin: 0;
 				padding: 0.25rem 1.3rem 1.2rem;
 				border-top: 1px dashed var(--line);
-			}
-			details[open] .form-figure + .changelog {
-				border-top: 0;
 			}
 			.changelog li {
 				position: relative;
