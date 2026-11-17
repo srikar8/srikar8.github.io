@@ -46,24 +46,18 @@ const diagnostics = [
 						<span class="t-theme">Lab file · Unit SM-26 · {profile.location}</span>
 						<span class="t-plain">{profile.title} · {profile.location}</span>
 					</p>
-					<h1 class="display">
-						<span class="t-theme">
-							Dr. Gero built autonomous androids.<br /><span class="hl">I build them with guardrails.</span>
-						</span>
-						<span class="t-plain">I build production-grade agentic AI systems.</span>
-					</h1>
+					<p class="tagline mono t-theme">Dr. Gero built androids. I build agents.</p>
+					<h1 class="display">I make LLMs do <span class="hl">real work</span> in production.</h1>
 					<p class="lede">
-						I'm <strong>{profile.name}</strong>, an AI Engineer with {profile.years} years shipping LLM-powered agents,
-						SDLC automation, computer vision, and multimodal AI — from 0→1 into production. Currently
-						<strong>{profile.currentRole}</strong> at {profile.currentOrg}.
+						Hi, I'm <strong>Srikar</strong>. Right now I build agents that investigate CI failures and automate the
+						SDLC for Cisco's NX-OS teams. Before that: an agentic procurement platform, CLIP trained from scratch, and a
+						lot of computer vision. {profile.years} years of shipping AI that people actually use.
 					</p>
 					<div class="cta">
 						<a class="btn btn-primary" href={`mailto:${profile.email}`}>
-							<span class="t-theme">Activate a new android</span><span class="t-plain">Get in touch</span>
+							Email me
 						</a>
-						<a class="btn" href={profile.resume} target="_blank">
-							<span class="t-theme">Download blueprint</span><span class="t-plain">Download resume</span>
-						</a>
+						<a class="btn" href={profile.resume} target="_blank">Resume (PDF)</a>
 					</div>
 				</div>
 
@@ -120,7 +114,7 @@ const diagnostics = [
 					eyebrow="Choose a path"
 					title="Two capsules. One engineer."
 					plainTitle="Explore"
-					guide="Greetings. I am Unit 16, your guide. Pick a capsule: the model upgrade history, or the androids this engineer has built."
+					guide="Hi, I'm Unit 16. Two ways in: where Srikar has worked, or the things that got built."
 				/>
 				<div class="capsules">
 					<a class="capsule reveal" href="#upgrades">
@@ -129,7 +123,7 @@ const diagnostics = [
 						<span class="cap-title display">
 							<span class="t-theme">Model Upgrades</span><span class="t-plain">Experience</span>
 						</span>
-						<span class="cap-sub">From research intern to applied-AI engineer — every release, with changelog.</span>
+						<span class="cap-sub">Where I've worked and what I shipped at each stop.</span>
 					</a>
 					<a class="capsule capsule-b reveal" href="#androids">
 						<span class="cap deco" aria-hidden="true"><span class="cap-l"></span><span class="cap-r"></span><span class="cap-btn"></span></span>
@@ -137,7 +131,7 @@ const diagnostics = [
 						<span class="cap-title display">
 							<span class="t-theme">Android Lineup</span><span class="t-plain">Things I've built</span>
 						</span>
-						<span class="cap-sub">Agents and vision systems shipped to production — each with a spec sheet.</span>
+						<span class="cap-sub">Agents and vision systems that made it to production.</span>
 					</a>
 				</div>
 			</section>
@@ -149,7 +143,7 @@ const diagnostics = [
 					eyebrow="The journey"
 					title="Model upgrade history"
 					plainTitle="Experience"
-					guide="Androids do not train. They are upgraded. Each model below shipped new capabilities — expand a release to read its changelog."
+					guide="Androids don't train, they get upgraded. Each version below added something new. Click one for the changelog."
 				/>
 				<ol class="timeline">
 					{
@@ -191,7 +185,7 @@ const diagnostics = [
 					eyebrow="The work"
 					title="Android lineup"
 					plainTitle="Things I've built"
-					guide="Unlike the originals, these units obey. Every one ships with guardrails, evaluation, and a human in the loop where it matters."
+					guide="Things that actually shipped. Each one has evals, logging, and a human in the loop where it matters."
 				/>
 				<div class="grid">
 					{
@@ -232,7 +226,7 @@ const diagnostics = [
 					eyebrow="Installed modules"
 					title="Core systems"
 					plainTitle="Skills"
-					guide="Internal components detected. All modules are loaded and production-tested."
+					guide="The toolbox. Mostly Python and PyTorch, plus whatever the problem needs."
 				/>
 				<div class="mod-grid">
 					{
@@ -258,7 +252,7 @@ const diagnostics = [
 					eyebrow="Unit profile"
 					title="Engineer specification"
 					plainTitle="About me"
-					guide="Even the builder has a spec sheet. Training data and certified components are listed below."
+					guide="The person behind the units."
 				/>
 				<div class="profile-grid">
 					<div class="id-card panel reveal">
@@ -339,12 +333,11 @@ const diagnostics = [
 				<div class="energy deco" aria-hidden="true"></div>
 				<p class="eyebrow">06 / Activation</p>
 				<h2 class="display">
-					<span class="t-theme">Ready to activate a new android?</span><span class="t-plain">Let's work together</span>
+					<span class="t-theme">Want to build something?</span><span class="t-plain">Get in touch</span>
 				</h2>
 				<p class="mono cmdline deco">$ activate --unit srikar --mission "your-team"</p>
 				<p>
-					I help teams turn messy workflows into reliable agentic systems — with evaluation, observability, and
-					guardrails built in.
+					If you have a workflow that should be an agent, or an agent that keeps breaking, I'd like to hear about it.
 				</p>
 				<div class="cta">
 					<a class="btn btn-primary" href={`mailto:${profile.email}`}>{profile.email}</a>
@@ -424,6 +417,11 @@ const diagnostics = [
 				align-items: center;
 				min-height: calc(100vh - 160px);
 				margin-bottom: 3rem;
+			}
+			.tagline {
+				margin: 0.9rem 0 0;
+				font-size: 0.95rem;
+				color: var(--orange);
 			}
 			.hero h1 {
 				font-size: clamp(2.6rem, 6vw, 4.6rem);
