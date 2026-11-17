@@ -1,7 +1,8 @@
 ---
-import { profile, upgrades } from '../data/resume';
+import { profile, upgrades, education } from '../data/resume';
 const today = new Date();
 const forms = [...upgrades].reverse().map((u) => u.form);
+const trainers = [...education].reverse().map((e) => e.place);
 ---
 
 <footer>
@@ -29,11 +30,13 @@ const forms = [...upgrades].reverse().map((u) => u.form);
 		<button class="x" type="button" data-close-credits aria-label="Close">×</button>
 		<h2 id="credits-title" class="display">Sprite credits</h2>
 		<p>
-			Goku transformation art on this site comes from the community
+			Character art on this site comes from the community
 			<a href="https://web.dragonball-api.com/" target="_blank" rel="noopener">Dragon Ball API</a>
-			(transparent WebP renders). Dragon Ball, Dragon Ball Z, and related characters are trademarks of
+			(transparent WebP renders) — Goku's forms for career stops, plus Master Roshi and King Kai for
+			college training places. Dragon Ball, Dragon Ball Z, and related characters are trademarks of
 			Toei Animation / Bird Studio / Shueisha. This portfolio is a fan tribute and is not affiliated with them.
 		</p>
+		<p class="eyebrow mono">Forms</p>
 		<ul class="credit-forms">
 			{
 				forms.map((f) => (
@@ -42,6 +45,20 @@ const forms = [...upgrades].reverse().map((u) => u.form);
 						<span>
 							<strong>{f.name}</strong>
 							<small class="mono">{f.short}</small>
+						</span>
+					</li>
+				))
+			}
+		</ul>
+		<p class="eyebrow mono">Training places</p>
+		<ul class="credit-forms">
+			{
+				trainers.map((t) => (
+					<li>
+						<img src={t.img} alt="" width="48" height="72" loading="lazy" />
+						<span>
+							<strong>{t.name}</strong>
+							<small class="mono">{t.mentor}</small>
 						</span>
 					</li>
 				))
@@ -151,6 +168,12 @@ const forms = [...upgrades].reverse().map((u) => u.form);
 	.credits-panel p {
 		margin: 0 0 1rem;
 		font-size: 0.92rem;
+	}
+	.credits-panel .eyebrow {
+		margin: 0.4rem 0 0.5rem;
+		font-size: 0.7rem;
+		letter-spacing: 0.14em;
+		color: var(--muted);
 	}
 	.credits-panel a {
 		color: var(--cyan);
