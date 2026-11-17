@@ -4,6 +4,8 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import SectionHead from '../components/SectionHead.astro';
 import FormattedDate from '../components/FormattedDate.astro';
+import LabScene from '../components/LabScene.astro';
+import CapsuleReveal from '../components/CapsuleReveal.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import { getCollection } from 'astro:content';
 import {
@@ -20,15 +22,6 @@ const posts = (await getCollection('blog'))
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
 	.slice(0, 3);
 
-const diagnostics = [
-	['UNIT', profile.name],
-	['CLASS', 'AI Engineer · Agentic · CV · Multimodal'],
-	['CURRENT', `FDSE, Applied AI @ ${profile.currentOrg}`],
-	['RUNTIME', `${profile.years} years in production AI`],
-	['EFFICIENCY', '−85% manual ops · −50% test time'],
-	['COST / LATENCY', '−60% / −40%'],
-	['GUARDRAILS', 'ON · HUMAN-IN-THE-LOOP: ON'],
-];
 ---
 
 <!doctype html>
@@ -61,34 +54,7 @@ const diagnostics = [
 					</div>
 				</div>
 
-				<div class="scan panel" aria-label="Profile summary">
-					<div class="scan-bar mono">
-						<span class="lights deco" aria-hidden="true"><i></i><i></i><i></i></span>
-						<span class="t-theme">GERO-SUPERCOMPUTER :: DIAGNOSTIC</span><span class="t-plain">Profile</span>
-					</div>
-					<div class="scan-body">
-						<div class="portrait">
-							<img src={profile.photo} alt={profile.name} width="160" height="160" />
-							<span class="reticle deco" aria-hidden="true"></span>
-							<span class="scanline deco" aria-hidden="true"></span>
-						</div>
-						<ul class="diag mono">
-							<li class="cmd deco">&gt; run diagnostic --unit srikar</li>
-							{
-								diagnostics.map(([k, v], i) => (
-									<li style={`--d:${0.35 + i * 0.22}s`}>
-										<span class="k">{k}</span>
-										<span class="v">{v}</span>
-									</li>
-								))
-							}
-							<li class="ready" style={`--d:${0.35 + diagnostics.length * 0.22}s`}>
-								<span class="t-theme">STATUS: READY FOR ACTIVATION</span><span class="t-plain">Open to new roles</span>
-								<span class="caret deco" aria-hidden="true">▌</span>
-							</li>
-						</ul>
-					</div>
-				</div>
+				<LabScene upgrades={upgrades} />
 			</section>
 
 			<!-- METRICS -->
@@ -108,7 +74,7 @@ const diagnostics = [
 			</section>
 
 			<!-- CHOOSE A PATH -->
-			<section class="paths">
+			<section id="paths" class="paths">
 				<SectionHead
 					index="00"
 					eyebrow="Choose a path"
@@ -117,7 +83,7 @@ const diagnostics = [
 					guide="Hi, I'm Unit 16. Two ways in: where Srikar has worked, or the things that got built."
 				/>
 				<div class="capsules">
-					<a class="capsule reveal" href="#upgrades">
+					<a class="capsule reveal" href="#upgrades" data-pack="journey">
 						<span class="cap deco" aria-hidden="true"><span class="cap-l"></span><span class="cap-r"></span><span class="cap-btn"></span></span>
 						<span class="cap-meta mono">THE UPGRADE SERIES · 0{upgrades.length} versions</span>
 						<span class="cap-title display">
@@ -125,7 +91,7 @@ const diagnostics = [
 						</span>
 						<span class="cap-sub">Where I've worked and what I shipped at each stop.</span>
 					</a>
-					<a class="capsule capsule-b reveal" href="#androids">
+					<a class="capsule capsule-b reveal" href="#androids" data-pack="projects">
 						<span class="cap deco" aria-hidden="true"><span class="cap-l"></span><span class="cap-r"></span><span class="cap-btn"></span></span>
 						<span class="cap-meta mono">THE BUILDER SERIES · 0{androids.length} units</span>
 						<span class="cap-title display">
@@ -148,7 +114,7 @@ const diagnostics = [
 				<ol class="timeline">
 					{
 						upgrades.map((u, i) => (
-							<li class="release reveal">
+							<li class="release reveal" id={`model-${u.model}`}>
 								<div class="node" aria-hidden="true">
 									<span class="display">{u.model}</span>
 								</div>
@@ -190,7 +156,7 @@ const diagnostics = [
 				<div class="grid">
 					{
 						androids.map((a) => (
-							<article class="spec panel reveal">
+							<article class="spec panel reveal" id={`android-${a.id}`}>
 								<span class="spec-no display deco" aria-hidden="true">
 									#{a.id}
 								</span>
@@ -346,6 +312,7 @@ const diagnostics = [
 				</div>
 			</section>
 		</main>
+		<CapsuleReveal androids={androids} />
 		<Footer />
 
 		<script>
@@ -455,151 +422,15 @@ const diagnostics = [
 				margin-top: 1.5rem;
 			}
 
-			.scan {
-				overflow: hidden;
-				box-shadow:
-					0 0 0 1px rgba(63, 242, 255, 0.08),
-					0 30px 80px rgba(0, 0, 0, 0.5),
-					var(--glow-cyan);
+			.release.flash .release-card,
+			.spec.flash {
+				animation: flash-card 1.6s ease-out;
 			}
-			.scan-bar {
-				display: flex;
-				align-items: center;
-				gap: 0.75rem;
-				padding: 0.6rem 1rem;
-				font-size: 0.7rem;
-				letter-spacing: 0.14em;
-				color: var(--muted);
-				border-bottom: 1px solid var(--line);
-				background: rgba(63, 242, 255, 0.04);
-			}
-			.lights {
-				display: flex;
-				gap: 6px;
-			}
-			.lights i {
-				width: 9px;
-				height: 9px;
-				border-radius: 50%;
-				background: var(--red);
-			}
-			.lights i:nth-child(2) {
-				background: var(--yellow);
-			}
-			.lights i:nth-child(3) {
-				background: var(--green);
-			}
-			.scan-body {
-				display: grid;
-				grid-template-columns: auto 1fr;
-				gap: 1.25rem;
-				padding: 1.25rem;
-				align-items: start;
-			}
-			.portrait {
-				position: relative;
-				width: 132px;
-				height: 132px;
-				border-radius: 12px;
-				overflow: hidden;
-				border: 1px solid var(--line-strong);
-			}
-			.portrait img {
-				width: 100%;
-				height: 100%;
-				object-fit: cover;
-				border-radius: 0;
-				filter: saturate(0.9) contrast(1.05);
-			}
-			.reticle {
-				position: absolute;
-				inset: 10px;
-				border: 2px solid transparent;
-				background:
-					linear-gradient(var(--cyan), var(--cyan)) top left / 16px 2px,
-					linear-gradient(var(--cyan), var(--cyan)) top left / 2px 16px,
-					linear-gradient(var(--cyan), var(--cyan)) top right / 16px 2px,
-					linear-gradient(var(--cyan), var(--cyan)) top right / 2px 16px,
-					linear-gradient(var(--cyan), var(--cyan)) bottom left / 16px 2px,
-					linear-gradient(var(--cyan), var(--cyan)) bottom left / 2px 16px,
-					linear-gradient(var(--cyan), var(--cyan)) bottom right / 16px 2px,
-					linear-gradient(var(--cyan), var(--cyan)) bottom right / 2px 16px;
-				background-repeat: no-repeat;
-			}
-			.scanline {
-				position: absolute;
-				left: 0;
-				right: 0;
-				height: 40%;
-				background: linear-gradient(to bottom, transparent, rgba(63, 242, 255, 0.35), transparent);
-				animation: scan 2.6s ease-in-out infinite;
-			}
-			@keyframes scan {
-				0% {
-					top: -40%;
-				}
-				100% {
-					top: 100%;
-				}
-			}
-			.diag {
-				list-style: none;
-				margin: 0;
-				padding: 0;
-				font-size: 0.78rem;
-				line-height: 1.55;
-			}
-			.diag li {
-				display: grid;
-				grid-template-columns: 8.5em 1fr;
-				gap: 0.5em;
-				opacity: 0;
-				animation: line 0.35s ease forwards;
-				animation-delay: var(--d, 0s);
-			}
-			:global(html.plain) .diag li,
-			:global(html:not(.js)) .diag li {
-				opacity: 1;
-			}
-			@media (prefers-reduced-motion: reduce) {
-				.diag li {
-					opacity: 1;
-				}
-			}
-			.diag .cmd {
-				display: block;
-				color: var(--orange);
-				margin-bottom: 0.35em;
-				animation-delay: 0.1s;
-			}
-			.diag .k {
-				color: var(--muted);
-			}
-			.diag .v {
-				color: var(--heading);
-			}
-			.diag .ready {
-				display: block;
-				margin-top: 0.5em;
-				color: var(--green);
-				font-weight: 700;
-			}
-			.caret {
-				animation: caret 1s steps(1) infinite;
-			}
-			@keyframes line {
-				from {
-					opacity: 0;
-					transform: translateX(-6px);
-				}
-				to {
-					opacity: 1;
-					transform: none;
-				}
-			}
-			@keyframes caret {
-				50% {
-					opacity: 0;
+			@keyframes flash-card {
+				0%,
+				30% {
+					border-color: var(--orange);
+					box-shadow: 0 0 0 2px var(--orange), var(--glow-orange);
 				}
 			}
 
@@ -1232,16 +1063,6 @@ const diagnostics = [
 				.log-grid,
 				.mod-grid {
 					grid-template-columns: 1fr;
-				}
-				.scan-body {
-					grid-template-columns: 1fr;
-				}
-				.portrait {
-					width: 96px;
-					height: 96px;
-				}
-				.diag li {
-					grid-template-columns: 7em 1fr;
 				}
 				.timeline::before {
 					left: 19px;
