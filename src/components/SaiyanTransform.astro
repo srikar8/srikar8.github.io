@@ -37,7 +37,7 @@ import SaiyanSprite from './SaiyanSprite.astro';
 		<p class="power mono"><span class="power-k">POWER LEVEL</span> <span data-power>0005</span></p>
 		<p class="t-msg" aria-live="polite">
 			<strong>Super Saiyan</strong>
-			<small class="mono" data-sub>Model upgrades unlocked</small>
+			<small class="mono" data-sub>Opening experience</small>
 		</p>
 	</div>
 </dialog>
@@ -84,7 +84,7 @@ import SaiyanSprite from './SaiyanSprite.astro';
 		if (still() || typeof dialog.showModal !== 'function') return finish();
 		const journey = pack === 'journey';
 		dialog.dataset.kind = journey ? 'gi' : 'armor';
-		sub.textContent = journey ? 'Model upgrades unlocked' : 'Android lineup unlocked';
+		sub.textContent = journey ? 'Opening experience' : 'Opening projects';
 		power.textContent = '0005';
 		dialog.classList.remove('playing');
 		dialog.showModal();

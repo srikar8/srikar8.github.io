@@ -115,53 +115,49 @@ const diagnostics = [
 					eyebrow="Choose a path"
 					title="Two capsules. One engineer."
 					plainTitle="Explore"
-					guide="Hi, I'm Unit 16. Two ways in: where Srikar has worked, or the things that got built."
+					guide="Two ways in: where I've worked, or what I've built."
 				/>
 				<div class="capsules">
 					<a class="capsule reveal" href="#upgrades" data-pack="journey">
 						<span class="cap deco" aria-hidden="true"><span class="cap-l"></span><span class="cap-r"></span><span class="cap-btn"></span></span>
-						<span class="cap-meta mono">THE UPGRADE SERIES · 0{upgrades.length} versions</span>
+						<span class="cap-meta mono">0{upgrades.length} roles · 2017 – now</span>
 						<span class="cap-title display">
-							<span class="t-theme">Model Upgrades</span><span class="t-plain">Experience</span>
+							Experience
 						</span>
 						<span class="cap-sub">Where I've worked and what I shipped at each stop.</span>
 					</a>
 					<a class="capsule capsule-b reveal" href="#androids" data-pack="projects">
 						<span class="cap deco" aria-hidden="true"><span class="cap-l"></span><span class="cap-r"></span><span class="cap-btn"></span></span>
-						<span class="cap-meta mono">THE BUILDER SERIES · 0{androids.length} units</span>
+						<span class="cap-meta mono">0{androids.length} projects</span>
 						<span class="cap-title display">
-							<span class="t-theme">Android Lineup</span><span class="t-plain">Things I've built</span>
+							Projects
 						</span>
 						<span class="cap-sub">Agents and vision systems that made it to production.</span>
 					</a>
 				</div>
 			</section>
 
-			<!-- UPGRADES -->
+			<!-- EXPERIENCE -->
 			<section id="upgrades" class="upgrades">
 				<SectionHead
 					index="01"
-					eyebrow="The journey"
-					title="Model upgrade history"
+					eyebrow="Where I've worked"
+					title="Experience"
 					plainTitle="Experience"
-					guide="Androids don't train, they get upgraded. Each version below added something new. Click one for the changelog."
+					guide="Newest first. Click a role to see what I shipped."
 				/>
 				<ol class="timeline">
 					{
 						upgrades.map((u, i) => (
 							<li class="release reveal">
 								<div class="node" aria-hidden="true">
-									<span class="display">{u.model}</span>
+									<span class="display">'{u.model}</span>
 								</div>
 								<details class="release-card panel" open={i === 0}>
 									<summary>
 										<span class="rel-top mono">
-											<span class="model">
-												<span class="t-theme">MODEL {u.model}</span>
-												<span class="t-plain">{u.period}</span>
-											</span>
-											<span class="t-theme period">{u.period}</span>
-											{i === 0 && <span class="live">● ACTIVE</span>}
+											<span class="model">{u.period}</span>
+											{i === 0 && <span class="live">● CURRENT</span>}
 										</span>
 										<span class="role">{u.role}</span>
 										<span class="org">
@@ -179,24 +175,23 @@ const diagnostics = [
 				</ol>
 			</section>
 
-			<!-- ANDROIDS -->
+			<!-- PROJECTS -->
 			<section id="androids" class="androids">
 				<SectionHead
 					index="02"
-					eyebrow="The work"
-					title="Android lineup"
-					plainTitle="Things I've built"
-					guide="Things that actually shipped. Each one has evals, logging, and a human in the loop where it matters."
+					eyebrow="What I've built"
+					title="Projects"
+					plainTitle="Projects"
+					guide="Things that shipped to production."
 				/>
 				<div class="grid">
 					{
 						androids.map((a) => (
 							<article class="spec panel reveal">
 								<span class="spec-no display deco" aria-hidden="true">
-									#{a.id}
+									{a.id}
 								</span>
 								<p class="eyebrow">
-									<span class="t-theme">Android #{a.id} · </span>
 									{a.origin}
 								</p>
 								<h3>{a.name}</h3>
