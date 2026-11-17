@@ -1,58 +1,56 @@
 ---
 import Layout from '../layouts/BlogPost.astro';
+import { profile } from '../data/resume';
 ---
 
 <Layout
 	title="About Me"
-	description="Srikar Madarapu, currently pursuing a Master’s in Data Science."
-	pubDate={new Date('September 18 2024')}
+	description="Srikar Madarapu — AI Engineer in Sunnyvale, California. Photographer and road-trip enthusiast off the clock."
+	pubDate={new Date('November 16 2026')}
 	heroImage="/srikar2.jpg"
 >
-<p>
-    Hello! I’m Srikar Madarapu, currently pursuing a Master’s in Data Science. While my academic and professional focus is on technology and research, I have a deep passion for photography and a love for exploring new places by road.
-  </p>
-  
-  <p>
-    Photography has been a significant part of my life for over a decade, allowing me to capture and appreciate the world through my lens. In addition, I enjoy embarking on long road trips, discovering new destinations, and fully immersing myself in the journey.
-  </p>
-  
-  <p>
-    Here are some of my recent road trip adventures:
-    <ul>
+	<p>
+		Hello! I’m Srikar Madarapu, an AI Engineer based in {profile.location}. I build production-grade agentic systems —
+		currently as a {profile.currentRole} at {profile.currentOrg}, where I automate SDLC workflows for network engineering
+		teams. Before that I led an AI procurement platform from 0→1 at Right Pro, did computer vision research at DePaul’s
+		MedIX Lab, and founded a visual data startup in Bangalore.
+	</p>
+
+	<p>
+		Off the clock, photography has been a big part of my life for over a decade, and I love exploring new places by
+		road.
+	</p>
+
+	<p>Here are some of my road trip adventures:</p>
+	<ul>
 		<li><strong>Seattle to Miami</strong> (In Planning)</li>
 		<li><strong>Chicago to Seattle to San Francisco to Dallas to Miami to Boston to Chicago</strong> (In Planning)</li>
 		<li><strong>Chicago to DC to New York</strong> (Completed)</li>
 		<li><strong>New York to Boston</strong> (Completed)</li>
 		<li><strong>New York to Atlanta</strong> (Completed)</li>
 		<li><strong>Atlanta to Tampa</strong> (Completed)</li>
-		<li><strong>Atlanta to Dallas to NOLA </strong> (Completed)</li>
-		<li><strong>LA to San Francisco </strong> (Completed)</li>
+		<li><strong>Atlanta to Dallas to NOLA</strong> (Completed)</li>
+		<li><strong>LA to San Francisco</strong> (Completed)</li>
 		<li><strong>San Francisco to Seattle</strong> (Completed)</li>
 		<li><strong>Chicago to Madison</strong> (Completed)</li>
 		<li><strong>Chicago to Cincinnati</strong> (Completed)</li>
 		<li><strong>Chicago to Omaha</strong> (Completed)</li>
-    </ul>
-  </p>
-  <p>
-    Beyond traveling, I enjoy playing board and card games, which are perfect for relaxation and fun.
-  </p>
-  
-  <p>
-    Feel free to explore my website to learn more about my work and interests, or get in touch if you’d like to connect!
-  </p>
-  
-  <img src="/roadtrips/7.jpg" alt="Chicago to DC to New York" />
-  <img src="/roadtrips/6.jpg" alt="New York to Boston" />
-  <img src="/roadtrips/5.jpg" alt="New York to Atlanta" />
-  <img src="/roadtrips/4.jpg" alt="Atlanta to Tampa" />
-  <img src="/roadtrips/3.jpg" alt="Atlanta to Dallas to NOLA" />
-  <img src="/roadtrips/2.jpg" alt="LA to San Francisco" />
-  <img src="/roadtrips/1.jpg" alt="SFO to Seattle" />
-  <img src="/roadtrips/10.jpg" alt="Chicago to Madison" />
-  <img src="/roadtrips/9.jpg" alt="Chicago to Cincinnati" />
-  <img src="/roadtrips/8.jpg" alt="Chicago to Omaha" />
-  
-  
+	</ul>
+	<p>Beyond traveling, I enjoy playing board and card games.</p>
 
+	<p>
+		Want to build something together? Reach me at <a href={`mailto:${profile.email}`}>{profile.email}</a> or on
+		<a href={profile.linkedin}>LinkedIn</a>.
+	</p>
+
+	<img src="/roadtrips/7.jpg" alt="Chicago to DC to New York" />
+	<img src="/roadtrips/6.jpg" alt="New York to Boston" />
+	<img src="/roadtrips/5.jpg" alt="New York to Atlanta" />
+	<img src="/roadtrips/4.jpg" alt="Atlanta to Tampa" />
+	<img src="/roadtrips/3.jpg" alt="Atlanta to Dallas to NOLA" />
+	<img src="/roadtrips/2.jpg" alt="LA to San Francisco" />
+	<img src="/roadtrips/1.jpg" alt="SFO to Seattle" />
+	<img src="/roadtrips/10.jpg" alt="Chicago to Madison" />
+	<img src="/roadtrips/9.jpg" alt="Chicago to Cincinnati" />
+	<img src="/roadtrips/8.jpg" alt="Chicago to Omaha" />
 </Layout>
-

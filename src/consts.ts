@@ -1,5 +1,3 @@
-// Place any global data in this file.
-// You can import this data from anywhere in your site by using the `import` keyword.
-
-export const SITE_TITLE = 'Srikar Madarapu';
-export const SITE_DESCRIPTION = 'Welcome to my website!';
+export const SITE_TITLE = 'Srikar Madarapu · AI Engineer';
+export const SITE_DESCRIPTION =
+	'Srikar Madarapu — AI Engineer in Sunnyvale, CA building production-grade agentic AI systems, SDLC automation, computer vision, and multimodal AI.';

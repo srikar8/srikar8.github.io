@@ -2,8 +2,33 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import SectionHead from '../components/SectionHead.astro';
+import FormattedDate from '../components/FormattedDate.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
-import { ActionError } from 'astro:actions';
+import { getCollection } from 'astro:content';
+import {
+	profile,
+	metrics,
+	upgrades,
+	androids,
+	modules,
+	education,
+	certifications,
+} from '../data/resume';
+
+const posts = (await getCollection('blog'))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.slice(0, 3);
+
+const diagnostics = [
+	['UNIT', profile.name],
+	['CLASS', 'AI Engineer · Agentic · CV · Multimodal'],
+	['CURRENT', `FDSE, Applied AI @ ${profile.currentOrg}`],
+	['RUNTIME', `${profile.years} years in production AI`],
+	['EFFICIENCY', '−85% manual ops · −50% test time'],
+	['COST / LATENCY', '−60% / −40%'],
+	['GUARDRAILS', 'ON · HUMAN-IN-THE-LOOP: ON'],
+];
 ---
 
 <!doctype html>
@@ -13,35 +38,1230 @@ import { ActionError } from 'astro:actions';
 	</head>
 	<body>
 		<Header />
-		<main class="container">
-			<section id="about-me" class="row">
-				<div class="col-md-3">
-					<img src="/srikar.jpg" alt="Srikar Madarapu">
-				</div>
-				<div class="col-md-9">
-				  <h1 >Hey, I'm <span style="color: #2337ff">Srikar Madarapu.</span></h1>
-				  <h5 >Master's in Data Science (Computational Methods) <br>DePaul University</h5>
-				  <ul>
-					<li>Actively seeking a full-time position in San Francisco(open to relocate). <strong> Starting January 2025</strong>.</li>
-					<li>Previously worked as a Machine Learning Research Assistant at MedX Lab under <a href="https://www.cdm.depaul.edu/Faculty-and-Staff/pages/faculty-info.aspx?fid=365"> Dr. Jacob Furst</a></li>
-					<li>Currently working on Vision Language models / Multimodal models and Diffusion models.</li>
-					<li>Developed a sematic search engine using CLIP for retriving images using text/image as input</li>
-					<li>Conducted a comparative case study of Vision Transformers and CNNs</li>
-					<li>When I'm not immersed in data and technology, I enjoy photography, playing board games, and going on road trips.</li>
-				  </ul>
-				  <p>#MachineLearningEngineer #ComputerVisionEngineer #DataScientist #AISpecialist #DataEngineer #ResearchScientist #ResearchAnalyst #BusinessIntelligenceAnalyst #HealthDataAnalyst </p>
+		<main>
+			<!-- HERO -->
+			<section class="hero">
+				<div class="hero-copy">
+					<p class="eyebrow">
+						<span class="t-theme">Lab file · Unit SM-26 · {profile.location}</span>
+						<span class="t-plain">{profile.title} · {profile.location}</span>
+					</p>
+					<h1 class="display">
+						<span class="t-theme">
+							Dr. Gero built autonomous androids.<br /><span class="hl">I build them with guardrails.</span>
+						</span>
+						<span class="t-plain">I build production-grade agentic AI systems.</span>
+					</h1>
+					<p class="lede">
+						I'm <strong>{profile.name}</strong>, an AI Engineer with {profile.years} years shipping LLM-powered agents,
+						SDLC automation, computer vision, and multimodal AI — from 0→1 into production. Currently
+						<strong>{profile.currentRole}</strong> at {profile.currentOrg}.
+					</p>
+					<div class="cta">
+						<a class="btn btn-primary" href={`mailto:${profile.email}`}>
+							<span class="t-theme">Activate a new android</span><span class="t-plain">Get in touch</span>
+						</a>
+						<a class="btn" href={profile.resume} target="_blank">
+							<span class="t-theme">Download blueprint</span><span class="t-plain">Download resume</span>
+						</a>
+					</div>
 				</div>
 
-			  </section>
-			
-			<section id="connect-with-me" class="row">
-				<p><br>Feel free to reach out to me via email at <a href="mailto:madarapu.srikar@gmail.com">srikarmadarapu24@gmail.com</a>, or connect with me on <a href="http://linkedin.com/in/srikar8">LinkedIn</a> and <a href="http://github.com/srikar8">GitHub</a>.</p>
+				<div class="scan panel" aria-label="Profile summary">
+					<div class="scan-bar mono">
+						<span class="lights deco" aria-hidden="true"><i></i><i></i><i></i></span>
+						<span class="t-theme">GERO-SUPERCOMPUTER :: DIAGNOSTIC</span><span class="t-plain">Profile</span>
+					</div>
+					<div class="scan-body">
+						<div class="portrait">
+							<img src={profile.photo} alt={profile.name} width="160" height="160" />
+							<span class="reticle deco" aria-hidden="true"></span>
+							<span class="scanline deco" aria-hidden="true"></span>
+						</div>
+						<ul class="diag mono">
+							<li class="cmd deco">&gt; run diagnostic --unit srikar</li>
+							{
+								diagnostics.map(([k, v], i) => (
+									<li style={`--d:${0.35 + i * 0.22}s`}>
+										<span class="k">{k}</span>
+										<span class="v">{v}</span>
+									</li>
+								))
+							}
+							<li class="ready" style={`--d:${0.35 + diagnostics.length * 0.22}s`}>
+								<span class="t-theme">STATUS: READY FOR ACTIVATION</span><span class="t-plain">Open to new roles</span>
+								<span class="caret deco" aria-hidden="true">▌</span>
+							</li>
+						</ul>
+					</div>
+				</div>
 			</section>
-		  
-			<section id="end_content" class="row">
-			  <p>Explore my website to learn more about my work, projects, and insights into the world of Machine Learning and technology. Thank you for visiting!</p>
+
+			<!-- METRICS -->
+			<section class="metrics" aria-label="Impact">
+				{
+					metrics.map((m) => (
+						<div class="metric panel reveal">
+							<p class="num display">
+								<span data-count={m.value}>{m.value}</span>
+								{m.suffix}
+							</p>
+							<p class="label">{m.label}</p>
+							<p class="note mono">{m.note}</p>
+						</div>
+					))
+				}
 			</section>
-		  </main>		  
+
+			<!-- CHOOSE A PATH -->
+			<section class="paths">
+				<SectionHead
+					index="00"
+					eyebrow="Choose a path"
+					title="Two capsules. One engineer."
+					plainTitle="Explore"
+					guide="Greetings. I am Unit 16, your guide. Pick a capsule: the model upgrade history, or the androids this engineer has built."
+				/>
+				<div class="capsules">
+					<a class="capsule reveal" href="#upgrades">
+						<span class="cap deco" aria-hidden="true"><span class="cap-l"></span><span class="cap-r"></span><span class="cap-btn"></span></span>
+						<span class="cap-meta mono">THE UPGRADE SERIES · 0{upgrades.length} versions</span>
+						<span class="cap-title display">
+							<span class="t-theme">Model Upgrades</span><span class="t-plain">Experience</span>
+						</span>
+						<span class="cap-sub">From research intern to applied-AI engineer — every release, with changelog.</span>
+					</a>
+					<a class="capsule capsule-b reveal" href="#androids">
+						<span class="cap deco" aria-hidden="true"><span class="cap-l"></span><span class="cap-r"></span><span class="cap-btn"></span></span>
+						<span class="cap-meta mono">THE BUILDER SERIES · 0{androids.length} units</span>
+						<span class="cap-title display">
+							<span class="t-theme">Android Lineup</span><span class="t-plain">Things I've built</span>
+						</span>
+						<span class="cap-sub">Agents and vision systems shipped to production — each with a spec sheet.</span>
+					</a>
+				</div>
+			</section>
+
+			<!-- UPGRADES -->
+			<section id="upgrades" class="upgrades">
+				<SectionHead
+					index="01"
+					eyebrow="The journey"
+					title="Model upgrade history"
+					plainTitle="Experience"
+					guide="Androids do not train. They are upgraded. Each model below shipped new capabilities — expand a release to read its changelog."
+				/>
+				<ol class="timeline">
+					{
+						upgrades.map((u, i) => (
+							<li class="release reveal">
+								<div class="node" aria-hidden="true">
+									<span class="display">{u.model}</span>
+								</div>
+								<details class="release-card panel" open={i === 0}>
+									<summary>
+										<span class="rel-top mono">
+											<span class="model">
+												<span class="t-theme">MODEL {u.model}</span>
+												<span class="t-plain">{u.period}</span>
+											</span>
+											<span class="t-theme period">{u.period}</span>
+											{i === 0 && <span class="live">● ACTIVE</span>}
+										</span>
+										<span class="role">{u.role}</span>
+										<span class="org">
+											{u.org} · {u.location}
+										</span>
+										<span class="codename mono">{u.codename}</span>
+									</summary>
+									<ul class="changelog">
+										{u.changelog.map((c) => <li>{c}</li>)}
+									</ul>
+								</details>
+							</li>
+						))
+					}
+				</ol>
+			</section>
+
+			<!-- ANDROIDS -->
+			<section id="androids" class="androids">
+				<SectionHead
+					index="02"
+					eyebrow="The work"
+					title="Android lineup"
+					plainTitle="Things I've built"
+					guide="Unlike the originals, these units obey. Every one ships with guardrails, evaluation, and a human in the loop where it matters."
+				/>
+				<div class="grid">
+					{
+						androids.map((a) => (
+							<article class="spec panel reveal">
+								<span class="spec-no display deco" aria-hidden="true">
+									#{a.id}
+								</span>
+								<p class="eyebrow">
+									<span class="t-theme">Android #{a.id} · </span>
+									{a.origin}
+								</p>
+								<h3>{a.name}</h3>
+								<p class="mission">{a.mission}</p>
+								<ul class="chips">
+									{a.specs.map((s) => <li>{s}</li>)}
+								</ul>
+								<dl class="status mono">
+									<div>
+										<dt>Guardrails</dt>
+										<dd class="on">ON</dd>
+									</div>
+									<div>
+										<dt>Human-in-loop</dt>
+										<dd class={a.hitl ? 'on' : 'auto'}>{a.hitl ? 'ON' : 'AUTO'}</dd>
+									</div>
+								</dl>
+							</article>
+						))
+					}
+				</div>
+			</section>
+
+			<!-- MODULES -->
+			<section id="modules" class="modules">
+				<SectionHead
+					index="03"
+					eyebrow="Installed modules"
+					title="Core systems"
+					plainTitle="Skills"
+					guide="Internal components detected. All modules are loaded and production-tested."
+				/>
+				<div class="mod-grid">
+					{
+						modules.map((m) => (
+							<div class="module panel reveal">
+								<div class="mod-head">
+									<h3>{m.name}</h3>
+									<span class="mono count">{m.items.length} loaded</span>
+								</div>
+								<ul class="chips">
+									{m.items.map((s) => <li>{s}</li>)}
+								</ul>
+							</div>
+						))
+					}
+				</div>
+			</section>
+
+			<!-- PROFILE -->
+			<section id="profile" class="profile">
+				<SectionHead
+					index="04"
+					eyebrow="Unit profile"
+					title="Engineer specification"
+					plainTitle="About me"
+					guide="Even the builder has a spec sheet. Training data and certified components are listed below."
+				/>
+				<div class="profile-grid">
+					<div class="id-card panel reveal">
+						<div class="id-top mono">
+							<span class="t-theme">LAB ID · SM-26</span><span class="t-plain">Profile</span>
+							<span class="chip-gold deco" aria-hidden="true"></span>
+						</div>
+						<div class="id-body">
+							<img src={profile.photo} alt={profile.name} width="120" height="120" />
+							<div>
+								<h3>{profile.name}</h3>
+								<dl class="fields">
+									<div><dt>Role</dt><dd>{profile.currentRole}, {profile.currentOrg}</dd></div>
+									<div><dt>Based in</dt><dd>{profile.location}</dd></div>
+									<div><dt>Runtime</dt><dd>{profile.years} years</dd></div>
+								</dl>
+							</div>
+						</div>
+						<p class="summary">{profile.summary}</p>
+						<p class="off mono">
+							<span class="t-theme">OFF-DUTY MODE:</span><span class="t-plain">Off the clock:</span>
+							{profile.offDuty.join(' · ')}
+						</p>
+						<a class="more" href="/about">More about me →</a>
+					</div>
+
+					<div class="side">
+						<div class="panel block reveal">
+							<p class="eyebrow"><span class="t-theme">Training data</span><span class="t-plain">Education</span></p>
+							<ul class="edu">
+								{
+									education.map((e) => (
+										<li>
+											<strong>{e.degree}</strong>
+											<span>{e.school}</span>
+											<span class="mono when">{e.period}</span>
+										</li>
+									))
+								}
+							</ul>
+						</div>
+						<div class="panel block reveal">
+							<p class="eyebrow">
+								<span class="t-theme">Certified components · 0{certifications.length}</span>
+								<span class="t-plain">Certifications</span>
+							</p>
+							<ul class="certs">
+								{certifications.map((c) => <li>{c}</li>)}
+							</ul>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- LOGS -->
+			<section id="logs" class="logs">
+				<SectionHead index="05" eyebrow="Field logs" title="Lab notes" plainTitle="Recent writing" />
+				<div class="log-grid">
+					{
+						posts.map((post) => (
+							<a class="log panel reveal" href={`/blog/${post.slug}/`}>
+								{post.data.heroImage && <img src={post.data.heroImage} alt="" loading="lazy" />}
+								<span class="mono date">
+									<FormattedDate date={post.data.pubDate} />
+								</span>
+								<span class="log-title">{post.data.title}</span>
+							</a>
+						))
+					}
+				</div>
+				<a class="btn all-logs" href="/blog">
+					<span class="t-theme">All field logs →</span><span class="t-plain">All posts →</span>
+				</a>
+			</section>
+
+			<!-- CONTACT -->
+			<section id="contact" class="contact panel reveal">
+				<div class="energy deco" aria-hidden="true"></div>
+				<p class="eyebrow">06 / Activation</p>
+				<h2 class="display">
+					<span class="t-theme">Ready to activate a new android?</span><span class="t-plain">Let's work together</span>
+				</h2>
+				<p class="mono cmdline deco">$ activate --unit srikar --mission "your-team"</p>
+				<p>
+					I help teams turn messy workflows into reliable agentic systems — with evaluation, observability, and
+					guardrails built in.
+				</p>
+				<div class="cta">
+					<a class="btn btn-primary" href={`mailto:${profile.email}`}>{profile.email}</a>
+					<a class="btn" href={profile.linkedin} target="_blank" rel="noopener">LinkedIn</a>
+					<a class="btn" href={profile.github} target="_blank" rel="noopener">GitHub</a>
+				</div>
+			</section>
+		</main>
 		<Footer />
+
+		<script>
+			const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+			const reveal = new IntersectionObserver(
+				(entries) => {
+					entries.forEach((e) => {
+						if (e.isIntersecting) {
+							e.target.classList.add('in');
+							reveal.unobserve(e.target);
+						}
+					});
+				},
+				{ threshold: 0.12 }
+			);
+			document.querySelectorAll('.reveal').forEach((el) => reveal.observe(el));
+
+			const count = new IntersectionObserver(
+				(entries) => {
+					entries.forEach((e) => {
+						if (!e.isIntersecting) return;
+						const el = e.target as HTMLElement;
+						count.unobserve(el);
+						const target = Number(el.dataset.count);
+						if (reduce || document.documentElement.classList.contains('plain')) return;
+						const start = performance.now();
+						const tick = (t: number) => {
+							const p = Math.min((t - start) / 1200, 1);
+							el.textContent = String(Math.round(target * (1 - Math.pow(1 - p, 3))));
+							if (p < 1) requestAnimationFrame(tick);
+						};
+						requestAnimationFrame(tick);
+					});
+				},
+				{ threshold: 0.6 }
+			);
+			document.querySelectorAll<HTMLElement>('[data-count]').forEach((el) => count.observe(el));
+		</script>
+
+		<style>
+			section {
+				margin-bottom: 6rem;
+				scroll-margin-top: 90px;
+			}
+
+			:global(html.js) .reveal {
+				opacity: 0;
+				transform: translateY(18px);
+				transition: opacity 0.6s ease, transform 0.6s ease;
+			}
+			:global(html.js) .reveal.in,
+			:global(html.plain) .reveal {
+				opacity: 1;
+				transform: none;
+			}
+			@media (prefers-reduced-motion: reduce) {
+				:global(html.js) .reveal {
+					opacity: 1;
+					transform: none;
+				}
+			}
+
+			/* HERO */
+			.hero {
+				display: grid;
+				grid-template-columns: 1.15fr 1fr;
+				gap: 3rem;
+				align-items: center;
+				min-height: calc(100vh - 160px);
+				margin-bottom: 3rem;
+			}
+			.hero h1 {
+				font-size: clamp(2.6rem, 6vw, 4.6rem);
+				line-height: 1.02;
+				margin: 0.6rem 0 1.2rem;
+				text-shadow: 4px 4px 0 rgba(0, 0, 0, 0.6);
+			}
+			:global(html.plain) .hero h1 {
+				text-shadow: none;
+				font-size: clamp(2.2rem, 5vw, 3.4rem);
+				line-height: 1.1;
+			}
+			.hl {
+				color: var(--orange);
+				text-shadow:
+					4px 4px 0 rgba(0, 0, 0, 0.6),
+					0 0 30px rgba(255, 122, 26, 0.45);
+			}
+			.lede {
+				font-size: 1.1rem;
+				color: var(--text);
+				max-width: 38rem;
+			}
+			.lede strong {
+				color: var(--heading);
+			}
+			.cta {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.75rem;
+				margin-top: 1.5rem;
+			}
+
+			.scan {
+				overflow: hidden;
+				box-shadow:
+					0 0 0 1px rgba(63, 242, 255, 0.08),
+					0 30px 80px rgba(0, 0, 0, 0.5),
+					var(--glow-cyan);
+			}
+			.scan-bar {
+				display: flex;
+				align-items: center;
+				gap: 0.75rem;
+				padding: 0.6rem 1rem;
+				font-size: 0.7rem;
+				letter-spacing: 0.14em;
+				color: var(--muted);
+				border-bottom: 1px solid var(--line);
+				background: rgba(63, 242, 255, 0.04);
+			}
+			.lights {
+				display: flex;
+				gap: 6px;
+			}
+			.lights i {
+				width: 9px;
+				height: 9px;
+				border-radius: 50%;
+				background: var(--red);
+			}
+			.lights i:nth-child(2) {
+				background: var(--yellow);
+			}
+			.lights i:nth-child(3) {
+				background: var(--green);
+			}
+			.scan-body {
+				display: grid;
+				grid-template-columns: auto 1fr;
+				gap: 1.25rem;
+				padding: 1.25rem;
+				align-items: start;
+			}
+			.portrait {
+				position: relative;
+				width: 132px;
+				height: 132px;
+				border-radius: 12px;
+				overflow: hidden;
+				border: 1px solid var(--line-strong);
+			}
+			.portrait img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				border-radius: 0;
+				filter: saturate(0.9) contrast(1.05);
+			}
+			.reticle {
+				position: absolute;
+				inset: 10px;
+				border: 2px solid transparent;
+				background:
+					linear-gradient(var(--cyan), var(--cyan)) top left / 16px 2px,
+					linear-gradient(var(--cyan), var(--cyan)) top left / 2px 16px,
+					linear-gradient(var(--cyan), var(--cyan)) top right / 16px 2px,
+					linear-gradient(var(--cyan), var(--cyan)) top right / 2px 16px,
+					linear-gradient(var(--cyan), var(--cyan)) bottom left / 16px 2px,
+					linear-gradient(var(--cyan), var(--cyan)) bottom left / 2px 16px,
+					linear-gradient(var(--cyan), var(--cyan)) bottom right / 16px 2px,
+					linear-gradient(var(--cyan), var(--cyan)) bottom right / 2px 16px;
+				background-repeat: no-repeat;
+			}
+			.scanline {
+				position: absolute;
+				left: 0;
+				right: 0;
+				height: 40%;
+				background: linear-gradient(to bottom, transparent, rgba(63, 242, 255, 0.35), transparent);
+				animation: scan 2.6s ease-in-out infinite;
+			}
+			@keyframes scan {
+				0% {
+					top: -40%;
+				}
+				100% {
+					top: 100%;
+				}
+			}
+			.diag {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+				font-size: 0.78rem;
+				line-height: 1.55;
+			}
+			.diag li {
+				display: grid;
+				grid-template-columns: 8.5em 1fr;
+				gap: 0.5em;
+				opacity: 0;
+				animation: line 0.35s ease forwards;
+				animation-delay: var(--d, 0s);
+			}
+			:global(html.plain) .diag li,
+			:global(html:not(.js)) .diag li {
+				opacity: 1;
+			}
+			@media (prefers-reduced-motion: reduce) {
+				.diag li {
+					opacity: 1;
+				}
+			}
+			.diag .cmd {
+				display: block;
+				color: var(--orange);
+				margin-bottom: 0.35em;
+				animation-delay: 0.1s;
+			}
+			.diag .k {
+				color: var(--muted);
+			}
+			.diag .v {
+				color: var(--heading);
+			}
+			.diag .ready {
+				display: block;
+				margin-top: 0.5em;
+				color: var(--green);
+				font-weight: 700;
+			}
+			.caret {
+				animation: caret 1s steps(1) infinite;
+			}
+			@keyframes line {
+				from {
+					opacity: 0;
+					transform: translateX(-6px);
+				}
+				to {
+					opacity: 1;
+					transform: none;
+				}
+			}
+			@keyframes caret {
+				50% {
+					opacity: 0;
+				}
+			}
+
+			/* METRICS */
+			.metrics {
+				display: grid;
+				grid-template-columns: repeat(4, 1fr);
+				gap: 1rem;
+			}
+			.metric {
+				padding: 1.25rem;
+				position: relative;
+				overflow: hidden;
+			}
+			.metric::after {
+				content: '';
+				position: absolute;
+				left: 0;
+				bottom: 0;
+				height: 3px;
+				width: 100%;
+				background: linear-gradient(90deg, var(--orange), var(--yellow));
+			}
+			.num {
+				font-size: 3rem;
+				line-height: 1;
+				margin: 0 0 0.4rem;
+				color: var(--orange);
+			}
+			.label {
+				margin: 0;
+				color: var(--heading);
+				font-weight: 700;
+				line-height: 1.3;
+			}
+			.note {
+				margin: 0.3rem 0 0;
+				font-size: 0.72rem;
+				color: var(--muted);
+			}
+
+			/* CAPSULES */
+			.capsules {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 1.25rem;
+			}
+			.capsule {
+				display: flex;
+				flex-direction: column;
+				gap: 0.4rem;
+				padding: 1.75rem;
+				border-radius: 22px;
+				text-decoration: none;
+				color: var(--text);
+				background:
+					radial-gradient(circle at 85% 20%, rgba(255, 122, 26, 0.18), transparent 50%),
+					var(--panel);
+				border: 1px solid var(--line);
+				transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+			}
+			.capsule-b {
+				background:
+					radial-gradient(circle at 85% 20%, rgba(63, 242, 255, 0.16), transparent 50%),
+					var(--panel);
+			}
+			.capsule:hover {
+				transform: translateY(-4px);
+				border-color: var(--line-strong);
+				box-shadow: var(--glow-orange);
+				color: var(--text);
+			}
+			.capsule-b:hover {
+				box-shadow: var(--glow-cyan);
+			}
+			.cap {
+				position: relative;
+				display: block;
+				width: 120px;
+				height: 46px;
+				margin-bottom: 1rem;
+			}
+			.cap-l,
+			.cap-r {
+				position: absolute;
+				top: 0;
+				width: 50%;
+				height: 100%;
+				transition: transform 0.3s cubic-bezier(0.3, 1.6, 0.6, 1);
+			}
+			.cap-l {
+				left: 0;
+				border-radius: 23px 0 0 23px;
+				background: linear-gradient(180deg, #ffa25c, var(--orange) 55%, #c4520a);
+				border-right: 3px solid #1a1a1a;
+			}
+			.capsule-b .cap-l {
+				background: linear-gradient(180deg, #8ff8ff, #22c8d8 55%, #11808c);
+			}
+			.cap-r {
+				right: 0;
+				border-radius: 0 23px 23px 0;
+				background: linear-gradient(180deg, #ffffff, #d9dee8 55%, #9aa3b5);
+			}
+			.cap-btn {
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				width: 16px;
+				height: 16px;
+				transform: translate(-50%, -50%);
+				border-radius: 50%;
+				background: #1a1a1a;
+				box-shadow: inset 0 0 0 4px #e6e9f0;
+				z-index: 1;
+				transition: opacity 0.2s;
+			}
+			.capsule:hover .cap-l {
+				transform: translateX(-10px) rotate(-8deg);
+			}
+			.capsule:hover .cap-r {
+				transform: translateX(10px) rotate(8deg);
+			}
+			.capsule:hover .cap-btn {
+				opacity: 0;
+			}
+			.cap-meta {
+				font-size: 0.7rem;
+				letter-spacing: 0.14em;
+				color: var(--muted);
+			}
+			.cap-title {
+				font-size: 2.2rem;
+				line-height: 1;
+				color: var(--heading);
+			}
+			.cap-sub {
+				color: var(--muted);
+			}
+
+			/* TIMELINE */
+			.timeline {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+				position: relative;
+			}
+			.timeline::before {
+				content: '';
+				position: absolute;
+				left: 27px;
+				top: 10px;
+				bottom: 10px;
+				width: 2px;
+				background: linear-gradient(var(--orange), var(--cyan) 60%, transparent);
+			}
+			.release {
+				display: grid;
+				grid-template-columns: 56px 1fr;
+				gap: 1.25rem;
+				margin-bottom: 1.25rem;
+			}
+			.node {
+				position: relative;
+				width: 56px;
+				height: 56px;
+				border-radius: 50%;
+				display: grid;
+				place-items: center;
+				background: var(--panel-solid);
+				border: 2px solid var(--cyan);
+				color: var(--heading);
+				font-size: 1.4rem;
+				box-shadow: var(--glow-cyan);
+			}
+			.release:first-child .node {
+				border-color: var(--orange);
+				box-shadow: var(--glow-orange);
+			}
+			:global(html.plain) .node span {
+				font-size: 1rem;
+				font-weight: 700;
+			}
+			.release-card {
+				padding: 0;
+				overflow: hidden;
+			}
+			summary {
+				display: flex;
+				flex-direction: column;
+				gap: 0.15rem;
+				padding: 1.1rem 1.3rem;
+				cursor: pointer;
+				list-style: none;
+				position: relative;
+			}
+			summary::-webkit-details-marker {
+				display: none;
+			}
+			summary::after {
+				content: '+';
+				position: absolute;
+				right: 1.2rem;
+				top: 1rem;
+				font-family: var(--font-mono);
+				font-size: 1.3rem;
+				color: var(--cyan);
+				transition: transform 0.2s;
+			}
+			details[open] summary::after {
+				transform: rotate(45deg);
+			}
+			summary:hover {
+				background: rgba(63, 242, 255, 0.04);
+			}
+			.rel-top {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.4rem 1rem;
+				font-size: 0.72rem;
+				letter-spacing: 0.12em;
+				color: var(--muted);
+			}
+			.model {
+				color: var(--orange);
+				font-weight: 700;
+			}
+			.live {
+				color: var(--green);
+			}
+			.role {
+				font-size: 1.2rem;
+				font-weight: 700;
+				color: var(--heading);
+				padding-right: 2rem;
+			}
+			.org {
+				color: var(--text);
+			}
+			.codename {
+				align-self: flex-start;
+				margin-top: 0.35rem;
+				font-size: 0.7rem;
+				padding: 0.15em 0.6em;
+				border-radius: 999px;
+				border: 1px solid var(--line-strong);
+				color: var(--cyan);
+			}
+			.changelog {
+				list-style: none;
+				margin: 0;
+				padding: 0.25rem 1.3rem 1.2rem;
+				border-top: 1px dashed var(--line);
+			}
+			.changelog li {
+				position: relative;
+				padding-left: 1.6rem;
+				margin-top: 0.6rem;
+				font-size: 0.95rem;
+			}
+			.changelog li::before {
+				content: '+';
+				position: absolute;
+				left: 0;
+				top: 0;
+				font-family: var(--font-mono);
+				font-weight: 700;
+				color: var(--green);
+			}
+
+			/* ANDROIDS */
+			.grid {
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				gap: 1.25rem;
+			}
+			.spec {
+				position: relative;
+				overflow: hidden;
+				padding: 1.4rem;
+				display: flex;
+				flex-direction: column;
+				background:
+					linear-gradient(rgba(63, 242, 255, 0.04) 1px, transparent 1px) 0 0 / 100% 18px,
+					var(--panel);
+				transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+			}
+			:global(html.plain) .spec {
+				background: var(--panel);
+			}
+			.spec:hover {
+				transform: translateY(-4px);
+				border-color: var(--line-strong);
+				box-shadow: var(--glow-cyan);
+			}
+			.spec-no {
+				position: absolute;
+				right: 0.8rem;
+				top: 0.2rem;
+				font-size: 3.4rem;
+				line-height: 1;
+				color: transparent;
+				-webkit-text-stroke: 1px rgba(255, 122, 26, 0.4);
+			}
+			.spec .eyebrow,
+			.spec h3 {
+				padding-right: 4.5rem;
+			}
+			.spec h3 {
+				font-size: 1.35rem;
+				margin: 0.1rem 0 0.5rem;
+			}
+			.mission {
+				font-size: 0.95rem;
+				color: var(--text);
+				flex: 1;
+			}
+			.chips {
+				list-style: none;
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.4rem;
+				margin: 0 0 1rem;
+				padding: 0;
+			}
+			.chips li {
+				font-family: var(--font-mono);
+				font-size: 0.72rem;
+				padding: 0.25em 0.65em;
+				border-radius: 6px;
+				background: rgba(63, 242, 255, 0.07);
+				border: 1px solid var(--line);
+				color: var(--text);
+			}
+			.status {
+				display: flex;
+				gap: 1.25rem;
+				margin: 0;
+				padding-top: 0.8rem;
+				border-top: 1px dashed var(--line);
+				font-size: 0.7rem;
+				letter-spacing: 0.08em;
+			}
+			.status div {
+				display: flex;
+				gap: 0.4rem;
+			}
+			.status dt {
+				color: var(--muted);
+				text-transform: uppercase;
+			}
+			.status dd {
+				margin: 0;
+				font-weight: 700;
+			}
+			.on {
+				color: var(--green);
+			}
+			.auto {
+				color: var(--cyan);
+			}
+
+			/* MODULES */
+			.mod-grid {
+				display: grid;
+				grid-template-columns: repeat(2, 1fr);
+				gap: 1.25rem;
+			}
+			.module {
+				padding: 1.3rem;
+			}
+			.module:first-child {
+				grid-column: 1 / -1;
+				border-color: rgba(255, 122, 26, 0.45);
+			}
+			.mod-head {
+				display: flex;
+				justify-content: space-between;
+				align-items: baseline;
+				gap: 1rem;
+				margin-bottom: 0.8rem;
+			}
+			.mod-head h3 {
+				font-size: 1.15rem;
+				margin: 0;
+			}
+			.count {
+				font-size: 0.7rem;
+				color: var(--green);
+				white-space: nowrap;
+			}
+			.module .chips {
+				margin: 0;
+			}
+
+			/* PROFILE */
+			.profile-grid {
+				display: grid;
+				grid-template-columns: 1.3fr 1fr;
+				gap: 1.25rem;
+			}
+			.id-card {
+				padding: 0;
+				overflow: hidden;
+				border-color: rgba(255, 122, 26, 0.45);
+			}
+			.id-top {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding: 0.7rem 1.3rem;
+				font-size: 0.72rem;
+				letter-spacing: 0.15em;
+				color: #140800;
+				font-weight: 700;
+				background: linear-gradient(90deg, var(--orange), var(--yellow));
+			}
+			:global(html.plain) .id-top {
+				color: #fff;
+			}
+			.chip-gold {
+				width: 30px;
+				height: 22px;
+				border-radius: 4px;
+				background: linear-gradient(135deg, #f6e27a, #b8902c);
+				box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.25);
+			}
+			.id-body {
+				display: flex;
+				gap: 1.25rem;
+				padding: 1.3rem 1.3rem 0;
+				align-items: center;
+			}
+			.id-body img {
+				width: 110px;
+				height: 110px;
+				object-fit: cover;
+				border-radius: 12px;
+				border: 2px solid var(--line-strong);
+			}
+			.id-body h3 {
+				margin-bottom: 0.4rem;
+			}
+			.fields {
+				margin: 0;
+				font-size: 0.9rem;
+			}
+			.fields div {
+				display: flex;
+				gap: 0.6rem;
+			}
+			.fields dt {
+				min-width: 5.5em;
+				color: var(--muted);
+				font-family: var(--font-mono);
+				font-size: 0.75rem;
+				text-transform: uppercase;
+				padding-top: 0.2em;
+			}
+			.fields dd {
+				margin: 0;
+				color: var(--heading);
+			}
+			.summary {
+				padding: 1rem 1.3rem 0;
+				font-size: 0.95rem;
+			}
+			.off {
+				margin: 0 1.3rem;
+				padding: 0.7rem 0;
+				border-top: 1px dashed var(--line);
+				font-size: 0.75rem;
+				color: var(--text);
+			}
+			.off span {
+				color: var(--green);
+				margin-right: 0.5em;
+			}
+			.more {
+				display: inline-block;
+				margin: 0 1.3rem 1.3rem;
+			}
+			.side {
+				display: flex;
+				flex-direction: column;
+				gap: 1.25rem;
+			}
+			.block {
+				padding: 1.3rem;
+			}
+			.edu,
+			.certs {
+				list-style: none;
+				margin: 0.5rem 0 0;
+				padding: 0;
+			}
+			.edu li {
+				display: flex;
+				flex-direction: column;
+				margin-bottom: 0.8rem;
+			}
+			.edu strong {
+				color: var(--heading);
+			}
+			.when {
+				font-size: 0.72rem;
+				color: var(--muted);
+			}
+			.certs li {
+				position: relative;
+				padding-left: 1.6rem;
+				margin-bottom: 0.45rem;
+				font-size: 0.92rem;
+			}
+			.certs li::before {
+				content: '✓';
+				position: absolute;
+				left: 0;
+				color: var(--green);
+				font-weight: 700;
+			}
+
+			/* LOGS */
+			.log-grid {
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				gap: 1.25rem;
+				margin-bottom: 1.5rem;
+			}
+			.log {
+				display: flex;
+				flex-direction: column;
+				overflow: hidden;
+				text-decoration: none;
+				color: var(--text);
+				transition: transform 0.2s ease, box-shadow 0.2s ease;
+			}
+			.log:hover {
+				transform: translateY(-4px);
+				box-shadow: var(--glow-cyan);
+				color: var(--text);
+			}
+			.log img {
+				aspect-ratio: 16 / 9;
+				object-fit: cover;
+				width: 100%;
+				border-radius: 0;
+				border-bottom: 1px solid var(--line);
+			}
+			.log .date {
+				padding: 0.9rem 1.1rem 0;
+				font-size: 0.72rem;
+				color: var(--muted);
+			}
+			.log-title {
+				padding: 0.2rem 1.1rem 1.1rem;
+				font-weight: 700;
+				color: var(--heading);
+			}
+
+			/* CONTACT */
+			.contact {
+				position: relative;
+				overflow: hidden;
+				padding: 3rem 2rem;
+				text-align: center;
+				border-color: rgba(255, 122, 26, 0.5);
+			}
+			.contact h2 {
+				font-size: clamp(2rem, 5vw, 3.2rem);
+				margin: 0.3rem 0 0.8rem;
+			}
+			.contact p {
+				max-width: 36rem;
+				margin-inline: auto;
+			}
+			.contact .cta {
+				justify-content: center;
+			}
+			.cmdline {
+				color: var(--green);
+				font-size: 0.85rem;
+			}
+			.energy {
+				position: absolute;
+				inset: -40%;
+				background: conic-gradient(
+					from 0deg,
+					transparent,
+					rgba(255, 122, 26, 0.12),
+					transparent 30%,
+					rgba(63, 242, 255, 0.1),
+					transparent 60%
+				);
+				animation: spin 14s linear infinite;
+				pointer-events: none;
+			}
+			.contact > :not(.energy) {
+				position: relative;
+			}
+			@keyframes spin {
+				to {
+					transform: rotate(360deg);
+				}
+			}
+
+			@media (max-width: 960px) {
+				.hero,
+				.profile-grid {
+					grid-template-columns: 1fr;
+				}
+				.hero {
+					min-height: auto;
+					gap: 2rem;
+				}
+				.metrics {
+					grid-template-columns: repeat(2, 1fr);
+				}
+				.grid,
+				.log-grid {
+					grid-template-columns: repeat(2, 1fr);
+				}
+			}
+			@media (max-width: 640px) {
+				section {
+					margin-bottom: 4rem;
+				}
+				.capsules,
+				.grid,
+				.log-grid,
+				.mod-grid {
+					grid-template-columns: 1fr;
+				}
+				.scan-body {
+					grid-template-columns: 1fr;
+				}
+				.portrait {
+					width: 96px;
+					height: 96px;
+				}
+				.diag li {
+					grid-template-columns: 7em 1fr;
+				}
+				.timeline::before {
+					left: 19px;
+				}
+				.release {
+					grid-template-columns: 40px 1fr;
+					gap: 0.75rem;
+				}
+				.node {
+					width: 40px;
+					height: 40px;
+					font-size: 1rem;
+				}
+				.id-body {
+					flex-direction: column;
+					align-items: flex-start;
+				}
+			}
+		</style>
 	</body>
 </html>
