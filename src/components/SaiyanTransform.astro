@@ -1,5 +1,9 @@
 ---
-import SaiyanSprite from './SaiyanSprite.astro';
+import { upgrades } from '../data/resume';
+
+/** Chronological base → Ultra Instinct for the journey power-up. */
+const journeyForms = [...upgrades].reverse().map((u) => u.form);
+const finalForm = journeyForms[journeyForms.length - 1];
 ---
 
 <dialog id="saiyan-transform" aria-labelledby="transform-title">
@@ -20,8 +24,21 @@ import SaiyanSprite from './SaiyanSprite.astro';
 				<i style="--x:66px;--d:0.18s"></i>
 			</span>
 			<span class="fighter">
-				<SaiyanSprite variant="gi" class="f-gi" />
-				<SaiyanSprite variant="armor" class="f-armor" />
+				{
+					journeyForms.map((f, i) => (
+						<img
+							class:list={['form', { active: i === 0 }]}
+							src={f.img}
+							alt=""
+							width="160"
+							height="240"
+							data-form={f.key}
+							data-name={f.name}
+							data-aura={f.aura}
+							decoding="async"
+						/>
+					))
+				}
 			</span>
 			<span class="ground"></span>
 			<span class="rocks">
@@ -36,8 +53,8 @@ import SaiyanSprite from './SaiyanSprite.astro';
 
 		<p class="power mono"><span class="power-k">POWER LEVEL</span> <span data-power>0005</span></p>
 		<p class="t-msg" aria-live="polite">
-			<strong>Super Saiyan</strong>
-			<small class="mono" data-sub>Model upgrades unlocked</small>
+			<strong data-form-name>{finalForm.name}</strong>
+			<small class="mono" data-sub>Opening experience</small>
 		</p>
 	</div>
 </dialog>
@@ -46,18 +63,30 @@ import SaiyanSprite from './SaiyanSprite.astro';
 	const dialog = document.getElementById('saiyan-transform') as HTMLDialogElement;
 	const power = dialog.querySelector<HTMLElement>('[data-power]')!;
 	const sub = dialog.querySelector<HTMLElement>('[data-sub]')!;
-	const DURATION = 3600;
-	const SURGE = 1700;
+	const formName = dialog.querySelector<HTMLElement>('[data-form-name]')!;
+	const forms = [...dialog.querySelectorAll<HTMLImageElement>('.form')];
+	const DURATION = 4200;
+	const SURGE = 2800;
 	let timer: number | undefined;
 	let raf = 0;
+	let formTimer: number | undefined;
 	let target: string | null = null;
 
 	const still = () =>
 		window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
 		document.documentElement.classList.contains('plain');
 
+	function setForm(i: number) {
+		forms.forEach((el, n) => el.classList.toggle('active', n === i));
+		const f = forms[i];
+		if (!f) return;
+		formName.textContent = f.dataset.name ?? '';
+		dialog.style.setProperty('--aura', f.dataset.aura ?? '#ffd23f');
+	}
+
 	function finish() {
 		clearTimeout(timer);
+		clearInterval(formTimer);
 		cancelAnimationFrame(raf);
 		if (dialog.open) dialog.close();
 		document.body.classList.remove('modal-open');
@@ -79,18 +108,33 @@ import SaiyanSprite from './SaiyanSprite.astro';
 		raf = requestAnimationFrame(tick);
 	}
 
+	function cycleForms(journey: boolean) {
+		if (journey) {
+			let i = 0;
+			setForm(0);
+			formTimer = window.setInterval(() => {
+				i = Math.min(i + 1, forms.length - 1);
+				setForm(i);
+				if (i >= forms.length - 1) clearInterval(formTimer);
+			}, Math.floor(SURGE / Math.max(forms.length - 1, 1)));
+		} else {
+			setForm(forms.length - 1);
+		}
+	}
+
 	function open(pack: string, href: string) {
 		target = href;
 		if (still() || typeof dialog.showModal !== 'function') return finish();
 		const journey = pack === 'journey';
-		dialog.dataset.kind = journey ? 'gi' : 'armor';
-		sub.textContent = journey ? 'Model upgrades unlocked' : 'Android lineup unlocked';
+		dialog.dataset.kind = journey ? 'journey' : 'projects';
+		sub.textContent = journey ? "Opening Goku's journey" : 'Opening projects';
 		power.textContent = '0005';
 		dialog.classList.remove('playing');
 		dialog.showModal();
 		document.body.classList.add('modal-open');
 		void dialog.offsetWidth;
 		dialog.classList.add('playing');
+		cycleForms(journey);
 		countUp();
 		timer = window.setTimeout(finish, DURATION);
 	}
@@ -120,6 +164,7 @@ import SaiyanSprite from './SaiyanSprite.astro';
 		background: transparent;
 		color: var(--text);
 		overflow: hidden;
+		--aura: #ffd23f;
 	}
 	dialog::backdrop {
 		background: rgba(3, 5, 12, 0.94);
@@ -159,50 +204,50 @@ import SaiyanSprite from './SaiyanSprite.astro';
 	.arena {
 		position: relative;
 		width: 320px;
-		height: 300px;
+		height: 340px;
 	}
 	.arena > * {
 		position: absolute;
 		left: 50%;
 	}
 	.fighter {
-		bottom: 34px;
-		width: 132px;
-		margin-left: -66px;
+		bottom: 28px;
+		width: 180px;
+		height: 260px;
+		margin-left: -90px;
 		z-index: 2;
 	}
-	.fighter :global(.saiyan) {
-		width: 132px;
-		height: auto;
-		filter: drop-shadow(0 6px 0 rgba(0, 0, 0, 0.5));
+	.form {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+		object-position: bottom center;
+		opacity: 0;
+		filter: drop-shadow(0 8px 0 rgba(0, 0, 0, 0.45));
+		transition: opacity 0.18s ease;
+		pointer-events: none;
 	}
-	.fighter :global(.f-armor),
-	dialog[data-kind='armor'] .fighter :global(.f-gi) {
-		display: none;
-	}
-	dialog[data-kind='armor'] .fighter :global(.f-armor) {
-		display: block;
-	}
-	.fighter :global(.hair),
-	.fighter :global(.eye) {
-		transition: fill 0.12s;
+	.form.active {
+		opacity: 1;
 	}
 
 	.ground {
-		bottom: 22px;
-		width: 220px;
-		height: 22px;
-		margin-left: -110px;
+		bottom: 18px;
+		width: 240px;
+		height: 28px;
+		margin-left: -120px;
 		border-radius: 50%;
-		background: radial-gradient(ellipse, rgba(255, 210, 63, 0.35), transparent 70%);
+		background: radial-gradient(ellipse, color-mix(in srgb, var(--aura) 45%, transparent), transparent 70%);
 		opacity: 0;
 	}
 
 	.aura {
-		bottom: 20px;
-		width: 210px;
-		height: 260px;
-		margin-left: -105px;
+		bottom: 16px;
+		width: 230px;
+		height: 290px;
+		margin-left: -115px;
 		opacity: 0;
 		z-index: 1;
 	}
@@ -210,14 +255,39 @@ import SaiyanSprite from './SaiyanSprite.astro';
 		position: absolute;
 		inset: 0;
 		border-radius: 50% 50% 46% 46% / 64% 64% 36% 36%;
-		background: radial-gradient(ellipse at 50% 70%, rgba(255, 255, 255, 0.9), rgba(255, 220, 90, 0.75) 30%, rgba(255, 170, 30, 0.35) 55%, transparent 70%);
+		background: radial-gradient(
+			ellipse at 50% 70%,
+			rgba(255, 255, 255, 0.9),
+			color-mix(in srgb, var(--aura) 75%, transparent) 30%,
+			color-mix(in srgb, var(--aura) 35%, transparent) 55%,
+			transparent 70%
+		);
 		filter: blur(2px);
 		transform-origin: 50% 100%;
 	}
 	.aura i:nth-child(2) {
 		inset: 10% 16% 0;
-		clip-path: polygon(50% 0, 62% 22%, 80% 8%, 76% 36%, 100% 30%, 86% 60%, 100% 100%, 0 100%, 14% 60%, 0 30%, 24% 36%, 20% 8%, 38% 22%);
-		background: linear-gradient(to top, rgba(255, 255, 255, 0.95), rgba(255, 214, 70, 0.9) 45%, rgba(255, 170, 30, 0));
+		clip-path: polygon(
+			50% 0,
+			62% 22%,
+			80% 8%,
+			76% 36%,
+			100% 30%,
+			86% 60%,
+			100% 100%,
+			0 100%,
+			14% 60%,
+			0 30%,
+			24% 36%,
+			20% 8%,
+			38% 22%
+		);
+		background: linear-gradient(
+			to top,
+			rgba(255, 255, 255, 0.95),
+			color-mix(in srgb, var(--aura) 90%, #fff) 45%,
+			color-mix(in srgb, var(--aura) 0%, transparent)
+		);
 		filter: none;
 	}
 	.aura i:nth-child(3) {
@@ -286,13 +356,13 @@ import SaiyanSprite from './SaiyanSprite.astro';
 		display: block;
 		font-family: var(--font-display);
 		font-weight: 400;
-		font-size: clamp(2.6rem, 8vw, 4rem);
+		font-size: clamp(2.2rem, 7vw, 3.6rem);
 		line-height: 1;
 		letter-spacing: 0.04em;
-		color: var(--yellow);
+		color: var(--aura, var(--yellow));
 		text-shadow:
-			3px 3px 0 #c4520a,
-			0 0 30px rgba(255, 210, 63, 0.6);
+			3px 3px 0 #1a1020,
+			0 0 30px color-mix(in srgb, var(--aura, var(--yellow)) 60%, transparent);
 	}
 	.t-msg small {
 		color: var(--cyan);
@@ -300,41 +370,34 @@ import SaiyanSprite from './SaiyanSprite.astro';
 		font-size: 0.78rem;
 	}
 
-	/* Charge: 0 – 1.7s, surge at 1.7s */
 	.playing .arena {
-		animation: quake 0.09s linear 0.3s 15, quake-big 0.06s linear 1.7s 8;
+		animation: quake 0.09s linear 0.3s 18, quake-big 0.06s linear 2.7s 8;
 	}
 	.playing .fighter {
-		animation: crouch 1.4s ease-in 0.3s forwards, rise 0.3s ease-out 1.7s forwards;
+		animation: crouch 2s ease-in 0.3s forwards, rise 0.3s ease-out 2.7s forwards;
 	}
 	.playing .rocks i {
-		animation: lift 1.6s ease-out var(--d) forwards;
+		animation: lift 2.2s ease-out var(--d) forwards;
 	}
 	.playing .streaks i {
-		animation: streak 0.5s linear calc(1.75s + var(--d)) 4;
+		animation: streak 0.5s linear calc(2.75s + var(--d)) 4;
 	}
 	.playing .flash {
-		animation: surge 0.6s ease-out 1.65s forwards;
+		animation: surge 0.6s ease-out 2.65s forwards;
 	}
 	.playing .aura {
 		animation:
-			aura-in 0.25s ease-out 1.7s forwards,
-			aura-pulse 0.32s ease-in-out 1.95s infinite alternate;
+			aura-in 0.25s ease-out 2.7s forwards,
+			aura-pulse 0.32s ease-in-out 2.95s infinite alternate;
 	}
 	.playing .aura i:nth-child(2) {
-		animation: flicker 0.18s steps(2) 1.7s infinite;
+		animation: flicker 0.18s steps(2) 2.7s infinite;
 	}
 	.playing .ground {
-		animation: aura-in 0.25s ease-out 1.7s forwards;
-	}
-	.playing .fighter :global(.hair) {
-		animation: to-gold 0.01s linear 1.72s forwards;
-	}
-	.playing .fighter :global(.eye) {
-		animation: to-teal 0.01s linear 1.72s forwards;
+		animation: aura-in 0.25s ease-out 2.7s forwards;
 	}
 	.playing .t-msg {
-		animation: msg-in 0.35s cubic-bezier(0.2, 1.6, 0.5, 1) 1.95s forwards;
+		animation: msg-in 0.35s cubic-bezier(0.2, 1.6, 0.5, 1) 2.85s forwards;
 	}
 
 	@keyframes quake {
@@ -424,16 +487,6 @@ import SaiyanSprite from './SaiyanSprite.astro';
 	@keyframes flicker {
 		50% {
 			transform: scaleY(1.08) scaleX(0.95);
-		}
-	}
-	@keyframes to-gold {
-		to {
-			fill: #ffd23f;
-		}
-	}
-	@keyframes to-teal {
-		to {
-			fill: #1fb5a8;
 		}
 	}
 	@keyframes msg-in {

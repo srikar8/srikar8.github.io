@@ -23,8 +23,35 @@ export const metrics = [
 	{ value: 50, suffix: '%', label: 'Faster regression runs', note: '4h → 2h on NX-OS' },
 ];
 
+export interface GokuForm {
+	key: string;
+	name: string;
+	short: string;
+	aura: string;
+	img: string;
+}
+
+const goku = (key: string, name: string, short: string, aura: string): GokuForm => ({
+	key,
+	name,
+	short,
+	aura,
+	img: `/sprites/goku/${key}.webp`,
+});
+
+export const forms = {
+	base: goku('base', 'Base form', 'Base', '#f4f1e8'),
+	ssj: goku('ssj', 'Super Saiyan', 'SSJ', '#ffd23f'),
+	ssj2: goku('ssj2', 'Super Saiyan 2', 'SSJ2', '#ffe45c'),
+	ssj3: goku('ssj3', 'Super Saiyan 3', 'SSJ3', '#ffb81a'),
+	ssj4: goku('ssj4', 'Super Saiyan 4', 'SSJ4', '#ff4d5e'),
+	ssjb: goku('ssjb', 'Super Saiyan Blue', 'Blue', '#3fd6ff'),
+	ultra: goku('ultra', 'Ultra Instinct', 'UI', '#d6dcff'),
+};
+
 export interface Upgrade {
 	model: string;
+	form: GokuForm;
 	period: string;
 	role: string;
 	org: string;
@@ -40,6 +67,7 @@ export const upgrades: Upgrade[] = [
 		role: 'Forward Deployed Solutions Engineer – Applied AI',
 		org: 'Cisco (Contract)',
 		location: 'Sunnyvale, CA',
+		form: forms.ultra,
 		codename: 'Agentic SDLC automation',
 		changelog: [
 			'Owned discovery, prototyping, and rollout of agentic automation for Nexus NX-OS engineering teams in Data Center Networking.',
@@ -57,6 +85,7 @@ export const upgrades: Upgrade[] = [
 		role: 'Full-Stack AI Engineer',
 		org: 'Right Pro Inc',
 		location: 'Sunnyvale, CA',
+		form: forms.ssjb,
 		codename: 'Autonomous procurement',
 		changelog: [
 			'Led end-to-end development of an AI-powered procurement platform, reducing manual operations by 85%.',
@@ -73,6 +102,7 @@ export const upgrades: Upgrade[] = [
 		role: 'Computer Vision Research Assistant · Graduate TA',
 		org: 'MedIX Lab, DePaul University',
 		location: 'Chicago, IL',
+		form: forms.ssj4,
 		codename: 'Multimodal research',
 		changelog: [
 			'Trained OpenAI CLIP from scratch for semantic image search with FAISS tuned for sub-second retrieval.',
@@ -88,6 +118,7 @@ export const upgrades: Upgrade[] = [
 		role: 'AI & Visual Data Analytics Founder',
 		org: 'SRP',
 		location: 'Bangalore, India',
+		form: forms.ssj3,
 		codename: 'Data factory',
 		changelog: [
 			'Built and grew a visual media startup: 20+ projects with 6+ partner companies across India.',
@@ -102,6 +133,7 @@ export const upgrades: Upgrade[] = [
 		role: 'Video Analytics Engineer',
 		org: 'Origa Labs',
 		location: 'Bangalore, India',
+		form: forms.ssj2,
 		codename: 'Real-time vision',
 		changelog: [
 			'Designed real-time motion detection for human activity monitoring, improving machinery safety alerts by 35%.',
@@ -115,6 +147,7 @@ export const upgrades: Upgrade[] = [
 		role: 'Computer Vision Engineer',
 		org: 'Inferigence Quotient LLP',
 		location: 'Bangalore, India',
+		form: forms.ssj,
 		codename: 'Spatial awareness',
 		changelog: [
 			'Benchmarked open-source SLAM systems with camera and IMU data.',
@@ -127,6 +160,7 @@ export const upgrades: Upgrade[] = [
 		role: 'Research Intern',
 		org: 'DRDO CAIR',
 		location: 'Bangalore, India',
+		form: forms.base,
 		codename: 'First boot',
 		changelog: [
 			'Implemented CNN-based monocular depth prediction (78% accuracy).',
