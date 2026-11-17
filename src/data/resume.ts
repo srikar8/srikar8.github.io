@@ -253,9 +253,88 @@ export const modules = [
 	},
 ];
 
-export const education = [
-	{ degree: "Master's in Data Science", school: 'DePaul University, Chicago', period: 'Jan 2023 – Nov 2024' },
-	{ degree: "Bachelor's in Computer Science", school: 'NIIT University, India', period: 'Jul 2014 – May 2018' },
+export interface TrainingPlace {
+	key: string;
+	name: string;
+	short: string;
+	mentor: string;
+	aura: string;
+	img: string;
+}
+
+const dojo = (key: string, name: string, short: string, mentor: string, aura: string): TrainingPlace => ({
+	key,
+	name,
+	short,
+	mentor,
+	aura,
+	img: `/sprites/trainers/${key}.webp`,
+});
+
+export const trainingPlaces = {
+	/** King Kai's planet — advanced Other World training */
+	kai: dojo('kai', "King Kai's planet", 'Kai', 'King Kai', '#7cff9a'),
+	/** Turtle School / Kame House — foundational training under Master Roshi */
+	roshi: dojo('roshi', 'Turtle School', 'Roshi', 'Master Roshi', '#5fd0ff'),
+};
+
+export interface Education {
+	degree: string;
+	school: string;
+	period: string;
+	model: string;
+	location: string;
+	place: TrainingPlace;
+	codename: string;
+	changelog: string[];
+}
+
+export const education: Education[] = [
+	{
+		degree: "Master's in Data Science",
+		school: 'DePaul University',
+		period: 'Jan 2023 – Nov 2024',
+		model: '23',
+		location: 'Chicago, IL',
+		place: trainingPlaces.kai,
+		codename: 'Gravity training',
+		changelog: [
+			'Completed a Master\'s in Data Science with a focus on computer vision and multimodal learning.',
+			'Built research projects spanning CLIP, medical CT classification, and retrieval systems.',
+			'Supported 60+ students as a Graduate TA across data science, ML, and image processing.',
+		],
+	},
+	{
+		degree: "Bachelor's in Computer Science",
+		school: 'NIIT University',
+		period: 'Jul 2014 – May 2018',
+		model: '14',
+		location: 'Neemrana, India',
+		place: trainingPlaces.roshi,
+		codename: 'Turtle School basics',
+		changelog: [
+			'Built the CS foundation: algorithms, systems, and the first computer-vision projects.',
+			'Interned at DRDO CAIR during senior year — depth prediction and SLAM for robotics.',
+			'Graduated ready to ship real vision systems, not just coursework demos.',
+		],
+	},
+];
+
+/** Unified newest-first journey: work forms + education training places (like college stops on a route). */
+export type JourneyStop =
+	| { kind: 'work'; data: Upgrade }
+	| { kind: 'training'; data: Education };
+
+export const journey: JourneyStop[] = [
+	{ kind: 'work', data: upgrades[0] }, // Cisco
+	{ kind: 'work', data: upgrades[1] }, // Right Pro
+	{ kind: 'work', data: upgrades[2] }, // DePaul MedIX
+	{ kind: 'training', data: education[0] }, // DePaul Master's → King Kai
+	{ kind: 'work', data: upgrades[3] }, // SRP
+	{ kind: 'work', data: upgrades[4] }, // Origa
+	{ kind: 'work', data: upgrades[5] }, // Inferigence
+	{ kind: 'work', data: upgrades[6] }, // DRDO
+	{ kind: 'training', data: education[1] }, // NIIT → Turtle School
 ];
 
 export const certifications = [

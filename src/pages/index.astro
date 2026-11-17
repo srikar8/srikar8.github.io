@@ -14,6 +14,7 @@ import {
 	androids,
 	modules,
 	education,
+	journey,
 	certifications,
 } from '../data/resume';
 
@@ -120,11 +121,11 @@ const diagnostics = [
 				<div class="capsules">
 					<a class="capsule reveal" href="#upgrades" data-pack="journey">
 						<span class="cap deco" aria-hidden="true"><span class="cap-l"></span><span class="cap-r"></span><span class="cap-btn"></span></span>
-						<span class="cap-meta mono">0{upgrades.length} forms · 2017 – now</span>
+						<span class="cap-meta mono">0{journey.length} stops · 2014 – now</span>
 						<span class="cap-title display">
 							<span class="t-theme">Goku's journey</span><span class="t-plain">Experience</span>
 						</span>
-						<span class="cap-sub">Seven roles. Seven transformations. Where I've worked and what I shipped.</span>
+						<span class="cap-sub">Seven roles, two training grounds. Forms plus where I leveled up.</span>
 					</a>
 					<a class="capsule capsule-b reveal" href="#androids" data-pack="projects">
 						<span class="cap deco" aria-hidden="true"><span class="cap-l"></span><span class="cap-r"></span><span class="cap-btn"></span></span>
@@ -144,44 +145,87 @@ const diagnostics = [
 					eyebrow="Where I've worked"
 					title="Goku's journey"
 					plainTitle="Experience"
-					guide="Seven roles. Seven forms. Newest first — click a stop to see what I shipped."
+					guide="Nine stops on the route — roles as forms, college as training places. Newest first."
 				/>
 				<ol class="timeline journey">
 					{
-						upgrades.map((u, i) => (
-							<li class="release reveal" style={`--aura:${u.form.aura}`}>
-								<div class="node" aria-hidden="true">
-									<img class="form-art deco" src={u.form.img} alt="" width="72" height="72" loading="lazy" />
-									<span class="display year t-plain">'{u.model}</span>
-								</div>
-								<details class="release-card panel" open={i === 0}>
-									<summary>
-										<span class="rel-top mono">
-											<span class="model">{u.period}</span>
-											<span class="form-tag deco" style={`--aura:${u.form.aura}`}>
-												{u.form.short}
+						journey.map((stop, i) => {
+							if (stop.kind === 'work') {
+								const u = stop.data;
+								return (
+									<li class="release reveal" style={`--aura:${u.form.aura}`}>
+										<div class="node" aria-hidden="true">
+											<img class="form-art deco" src={u.form.img} alt="" width="72" height="72" loading="lazy" />
+											<span class="display year t-plain">'{u.model}</span>
+										</div>
+										<details class="release-card panel" open={i === 0}>
+											<summary>
+												<span class="rel-top mono">
+													<span class="model">{u.period}</span>
+													<span class="form-tag deco" style={`--aura:${u.form.aura}`}>
+														{u.form.short}
+													</span>
+													{i === 0 && <span class="live">● CURRENT</span>}
+												</span>
+												<span class="role">{u.role}</span>
+												<span class="org">
+													{u.org} · {u.location}
+												</span>
+												<span class="codename mono">
+													<span class="t-theme">{u.form.name} · </span>
+													{u.codename}
+												</span>
+											</summary>
+											<figure class="form-figure deco">
+												<img src={u.form.img} alt={`${u.form.name} artwork`} width="180" height="280" loading="lazy" />
+												<figcaption class="mono">{u.form.name}</figcaption>
+											</figure>
+											<ul class="changelog">
+												{u.changelog.map((c) => <li>{c}</li>)}
+											</ul>
+										</details>
+									</li>
+								);
+							}
+
+							const e = stop.data;
+							return (
+								<li class="release release-train reveal" style={`--aura:${e.place.aura}`}>
+									<div class="node node-train" aria-hidden="true">
+										<img class="form-art deco" src={e.place.img} alt="" width="72" height="72" loading="lazy" />
+										<span class="display year t-plain">'{e.model}</span>
+									</div>
+									<details class="release-card panel train-card">
+										<summary>
+											<span class="rel-top mono">
+												<span class="model">{e.period}</span>
+												<span class="form-tag deco train-tag" style={`--aura:${e.place.aura}`}>
+													{e.place.short}
+												</span>
+												<span class="train-pill deco">● TRAINING</span>
 											</span>
-											{i === 0 && <span class="live">● CURRENT</span>}
-										</span>
-										<span class="role">{u.role}</span>
-										<span class="org">
-											{u.org} · {u.location}
-										</span>
-										<span class="codename mono">
-											<span class="t-theme">{u.form.name} · </span>
-											{u.codename}
-										</span>
-									</summary>
-									<figure class="form-figure deco">
-										<img src={u.form.img} alt={`${u.form.name} artwork`} width="180" height="280" loading="lazy" />
-										<figcaption class="mono">{u.form.name}</figcaption>
-									</figure>
-									<ul class="changelog">
-										{u.changelog.map((c) => <li>{c}</li>)}
-									</ul>
-								</details>
-							</li>
-						))
+											<span class="role">{e.degree}</span>
+											<span class="org">
+												{e.school} · {e.location}
+											</span>
+											<span class="codename mono">
+												<span class="t-theme">{e.place.name} · </span>
+												{e.codename}
+											</span>
+										</summary>
+										<figure class="form-figure deco">
+											<img src={e.place.img} alt={`${e.place.mentor} artwork`} width="180" height="280" loading="lazy" />
+											<figcaption class="mono">
+												{e.place.name} · {e.place.mentor}
+											</figcaption>
+										</figure>
+										<ul class="changelog">
+											{e.changelog.map((c) => <li>{c}</li>)}
+										</ul>
+									</details>
+								</li>
+							);
+						})
 					}
 				</ol>
 			</section>
@@ -813,6 +857,19 @@ const diagnostics = [
 				padding: 0.1em 0.55em;
 				border-radius: 999px;
 				letter-spacing: 0.1em;
+			}
+			.train-pill {
+				color: var(--green);
+			}
+			.node-train {
+				border-style: dashed;
+			}
+			.train-card {
+				border-style: dashed;
+				border-color: color-mix(in srgb, var(--aura, var(--green)) 45%, var(--line));
+			}
+			.train-card summary:hover {
+				background: color-mix(in srgb, var(--aura, var(--green)) 8%, transparent);
 			}
 			.form-figure {
 				display: flex;
