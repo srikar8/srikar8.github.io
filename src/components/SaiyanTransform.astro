@@ -127,7 +127,7 @@ const finalForm = journeyForms[journeyForms.length - 1];
 		if (still() || typeof dialog.showModal !== 'function') return finish();
 		const journey = pack === 'journey';
 		dialog.dataset.kind = journey ? 'journey' : 'projects';
-		sub.textContent = journey ? "Opening Goku's journey" : 'Opening projects';
+		sub.textContent = journey ? 'Opening experience' : 'Opening projects';
 		power.textContent = '0005';
 		dialog.classList.remove('playing');
 		dialog.showModal();

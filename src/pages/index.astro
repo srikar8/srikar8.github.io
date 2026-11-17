@@ -114,36 +114,73 @@ const diagnostics = [
 				<SectionHead
 					index="00"
 					eyebrow="Choose a path"
-					title="Two capsules. One engineer."
+					title="Hop on a cloud."
 					plainTitle="Explore"
-					guide="Open a capsule: walk Goku's journey through my career, or jump straight to projects."
+					guide="Grab the Flying Nimbus — Experience for the route so far, Projects for what shipped."
 				/>
-				<div class="capsules">
-					<a class="capsule reveal" href="#upgrades" data-pack="journey">
-						<span class="cap deco" aria-hidden="true"><span class="cap-l"></span><span class="cap-r"></span><span class="cap-btn"></span></span>
-						<span class="cap-meta mono">0{journey.length} stops · 2014 – now</span>
-						<span class="cap-title display">
-							<span class="t-theme">Goku's journey</span><span class="t-plain">Experience</span>
+				<div class="nimbus-paths">
+					<a class="nimbus-card reveal" href="#upgrades" data-pack="journey">
+						<span class="nimbus-ride deco" aria-hidden="true">
+							<svg class="nimbus-cloud" viewBox="0 0 220 110" role="img">
+								<defs>
+									<linearGradient id="nimbusGold" x1="0" y1="0" x2="0" y2="1">
+										<stop offset="0%" stop-color="#fff1a0" />
+										<stop offset="40%" stop-color="#ffd23f" />
+										<stop offset="100%" stop-color="#e09a10" />
+									</linearGradient>
+								</defs>
+								<ellipse cx="110" cy="98" rx="72" ry="7" fill="rgba(0,0,0,0.3)" />
+								<!-- Flying Nimbus puffs -->
+								<g fill="url(#nimbusGold)" stroke="#c4840a" stroke-width="2.5" stroke-linejoin="round">
+									<ellipse cx="48" cy="62" rx="28" ry="24" />
+									<ellipse cx="88" cy="48" rx="34" ry="30" />
+									<ellipse cx="128" cy="42" rx="32" ry="28" />
+									<ellipse cx="168" cy="56" rx="30" ry="26" />
+									<ellipse cx="110" cy="68" rx="78" ry="26" />
+								</g>
+								<ellipse cx="78" cy="42" rx="16" ry="10" fill="rgba(255,255,255,0.4)" />
+								<ellipse cx="130" cy="38" rx="12" ry="8" fill="rgba(255,255,255,0.28)" />
+							</svg>
 						</span>
+						<span class="cap-meta mono">{String(journey.length).padStart(2, '0')} stops · 2014 – now</span>
+						<span class="cap-title display">Experience</span>
 						<span class="cap-sub">Seven roles, two training grounds. Forms plus where I leveled up.</span>
 					</a>
-					<a class="capsule capsule-b reveal" href="#androids" data-pack="projects">
-						<span class="cap deco" aria-hidden="true"><span class="cap-l"></span><span class="cap-r"></span><span class="cap-btn"></span></span>
-						<span class="cap-meta mono">0{androids.length} projects</span>
-						<span class="cap-title display">
-							Projects
+					<a class="nimbus-card nimbus-card-b reveal" href="#androids" data-pack="projects">
+						<span class="nimbus-ride deco" aria-hidden="true">
+							<svg class="nimbus-cloud" viewBox="0 0 220 110" role="img">
+								<defs>
+									<linearGradient id="nimbusCyan" x1="0" y1="0" x2="0" y2="1">
+										<stop offset="0%" stop-color="#d9fffb" />
+										<stop offset="40%" stop-color="#6ef0e8" />
+										<stop offset="100%" stop-color="#1a9e97" />
+									</linearGradient>
+								</defs>
+								<ellipse cx="110" cy="98" rx="72" ry="7" fill="rgba(0,0,0,0.3)" />
+								<g fill="url(#nimbusCyan)" stroke="#0e7a74" stroke-width="2.5" stroke-linejoin="round">
+									<ellipse cx="48" cy="62" rx="28" ry="24" />
+									<ellipse cx="88" cy="48" rx="34" ry="30" />
+									<ellipse cx="128" cy="42" rx="32" ry="28" />
+									<ellipse cx="168" cy="56" rx="30" ry="26" />
+									<ellipse cx="110" cy="68" rx="78" ry="26" />
+								</g>
+								<ellipse cx="78" cy="42" rx="16" ry="10" fill="rgba(255,255,255,0.45)" />
+								<ellipse cx="130" cy="38" rx="12" ry="8" fill="rgba(255,255,255,0.3)" />
+							</svg>
 						</span>
+						<span class="cap-meta mono">0{androids.length} projects</span>
+						<span class="cap-title display">Projects</span>
 						<span class="cap-sub">Agents and vision systems that made it to production.</span>
 					</a>
 				</div>
 			</section>
 
-			<!-- EXPERIENCE / GOKU'S JOURNEY -->
+			<!-- EXPERIENCE -->
 			<section id="upgrades" class="upgrades">
 				<SectionHead
 					index="01"
 					eyebrow="Where I've worked"
-					title="Goku's journey"
+					title="Experience"
 					plainTitle="Experience"
 					guide="Nine stops on the route — roles as forms, college as training places. Newest first."
 				/>
@@ -696,90 +733,80 @@ const diagnostics = [
 				color: var(--muted);
 			}
 
-			/* CAPSULES */
-			.capsules {
+			/* FLYING NIMBUS PATHS */
+			.nimbus-paths {
 				display: grid;
 				grid-template-columns: 1fr 1fr;
 				gap: 1.25rem;
 			}
-			.capsule {
+			.nimbus-card {
 				display: flex;
 				flex-direction: column;
-				gap: 0.4rem;
-				padding: 1.75rem;
-				border-radius: 22px;
+				gap: 0.35rem;
+				padding: 1.5rem 1.75rem 1.75rem;
+				border-radius: 28px;
 				text-decoration: none;
 				color: var(--text);
 				background:
-					radial-gradient(circle at 85% 20%, rgba(255, 122, 26, 0.18), transparent 50%),
+					radial-gradient(ellipse at 30% 0%, rgba(255, 210, 63, 0.22), transparent 55%),
 					var(--panel);
-				border: 1px solid var(--line);
-				transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+				border: 1px solid rgba(255, 210, 63, 0.28);
+				transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+				overflow: hidden;
 			}
-			.capsule-b {
+			.nimbus-card-b {
 				background:
-					radial-gradient(circle at 85% 20%, rgba(63, 242, 255, 0.16), transparent 50%),
+					radial-gradient(ellipse at 30% 0%, rgba(63, 242, 255, 0.18), transparent 55%),
 					var(--panel);
+				border-color: rgba(63, 242, 255, 0.28);
 			}
-			.capsule:hover {
-				transform: translateY(-4px);
-				border-color: var(--line-strong);
-				box-shadow: var(--glow-orange);
+			.nimbus-card:hover {
+				transform: translateY(-6px);
+				border-color: rgba(255, 210, 63, 0.55);
+				box-shadow: 0 0 28px rgba(255, 210, 63, 0.28);
 				color: var(--text);
 			}
-			.capsule-b:hover {
+			.nimbus-card-b:hover {
+				border-color: rgba(63, 242, 255, 0.55);
 				box-shadow: var(--glow-cyan);
 			}
-			.cap {
-				position: relative;
+			.nimbus-ride {
 				display: block;
-				width: 120px;
-				height: 46px;
-				margin-bottom: 1rem;
+				width: min(220px, 100%);
+				margin: 0 0 0.6rem;
 			}
-			.cap-l,
-			.cap-r {
-				position: absolute;
-				top: 0;
-				width: 50%;
-				height: 100%;
-				transition: transform 0.3s cubic-bezier(0.3, 1.6, 0.6, 1);
+			.nimbus-cloud {
+				width: 100%;
+				height: auto;
+				display: block;
+				filter: drop-shadow(0 10px 14px rgba(0, 0, 0, 0.35));
+				animation: nimbus-float 3.2s ease-in-out infinite;
 			}
-			.cap-l {
-				left: 0;
-				border-radius: 23px 0 0 23px;
-				background: linear-gradient(180deg, #ffa25c, var(--orange) 55%, #c4520a);
-				border-right: 3px solid #1a1a1a;
+			.nimbus-card:hover .nimbus-cloud {
+				animation-duration: 1.6s;
 			}
-			.capsule-b .cap-l {
-				background: linear-gradient(180deg, #8ff8ff, #22c8d8 55%, #11808c);
+			.nimbus-card-b .nimbus-cloud {
+				animation-delay: 0.4s;
 			}
-			.cap-r {
-				right: 0;
-				border-radius: 0 23px 23px 0;
-				background: linear-gradient(180deg, #ffffff, #d9dee8 55%, #9aa3b5);
+			@keyframes nimbus-float {
+				0%,
+				100% {
+					transform: translateY(0);
+				}
+				50% {
+					transform: translateY(-8px);
+				}
 			}
-			.cap-btn {
-				position: absolute;
-				left: 50%;
-				top: 50%;
-				width: 16px;
-				height: 16px;
-				transform: translate(-50%, -50%);
-				border-radius: 50%;
-				background: #1a1a1a;
-				box-shadow: inset 0 0 0 4px #e6e9f0;
-				z-index: 1;
-				transition: opacity 0.2s;
+			@media (prefers-reduced-motion: reduce) {
+				.nimbus-cloud {
+					animation: none;
+				}
 			}
-			.capsule:hover .cap-l {
-				transform: translateX(-10px) rotate(-8deg);
-			}
-			.capsule:hover .cap-r {
-				transform: translateX(10px) rotate(8deg);
-			}
-			.capsule:hover .cap-btn {
-				opacity: 0;
+			:global(html.plain) .nimbus-card {
+				border-radius: 14px;
+				border-color: var(--line);
+				background: var(--panel);
+				box-shadow: none;
 			}
 			.cap-meta {
 				font-size: 0.7rem;
@@ -1402,7 +1429,7 @@ const diagnostics = [
 				section {
 					margin-bottom: 4rem;
 				}
-				.capsules,
+				.nimbus-paths,
 				.grid,
 				.log-grid,
 				.mod-grid {
