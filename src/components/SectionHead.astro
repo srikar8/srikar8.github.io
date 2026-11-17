@@ -1,0 +1,119 @@
+---
+interface Props {
+	index: string;
+	eyebrow: string;
+	title: string;
+	plainTitle: string;
+	guide?: string;
+}
+
+const { index, eyebrow, title, plainTitle, guide } = Astro.props;
+---
+
+<div class="section-head reveal">
+	<p class="eyebrow"><span class="idx">{index}</span> / {eyebrow}</p>
+	<h2 class="display">
+		<span class="t-theme">{title}</span><span class="t-plain">{plainTitle}</span>
+	</h2>
+	{
+		guide && (
+			<div class="guide deco">
+				<svg class="guide-head" viewBox="0 0 48 48" aria-hidden="true">
+					<rect x="8" y="10" width="32" height="30" rx="9" class="g-shell" />
+					<rect x="13" y="19" width="22" height="9" rx="4.5" class="g-visor" />
+					<circle cx="19" cy="23.5" r="2" class="g-eye" />
+					<circle cx="29" cy="23.5" r="2" class="g-eye" />
+					<rect x="18" y="33" width="12" height="2.5" rx="1.25" class="g-mouth" />
+					<path d="M24 10V4" class="g-ant" />
+					<circle cx="24" cy="4" r="2.2" class="g-tip" />
+				</svg>
+				<p class="bubble">
+					<span class="who mono">UNIT 16 · GUIDE</span>
+					{guide}
+				</p>
+			</div>
+		)
+	}
+</div>
+
+<style>
+	.section-head {
+		margin-bottom: 2rem;
+	}
+	.idx {
+		color: var(--orange);
+	}
+	h2 {
+		font-size: clamp(2.2rem, 5vw, 3.4rem);
+		margin: 0.2rem 0 0.8rem;
+		text-shadow: 3px 3px 0 rgba(255, 122, 26, 0.35);
+	}
+	:global(html.plain) h2 {
+		text-shadow: none;
+		font-size: clamp(1.8rem, 4vw, 2.4rem);
+	}
+	.guide {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.75rem;
+		max-width: 640px;
+	}
+	.guide-head {
+		flex: 0 0 44px;
+		width: 44px;
+		height: 44px;
+	}
+	.g-shell {
+		fill: #2f6b3a;
+		stroke: var(--green);
+		stroke-width: 2;
+	}
+	.g-visor {
+		fill: #071a10;
+	}
+	.g-eye {
+		fill: var(--cyan);
+		animation: eye 3.5s infinite;
+	}
+	.g-mouth {
+		fill: var(--green);
+		opacity: 0.7;
+	}
+	.g-ant {
+		stroke: var(--green);
+		stroke-width: 2;
+	}
+	.g-tip {
+		fill: var(--orange);
+	}
+	.bubble {
+		position: relative;
+		margin: 0;
+		padding: 0.6rem 0.9rem;
+		background: rgba(95, 208, 104, 0.08);
+		border: 1px solid rgba(95, 208, 104, 0.35);
+		border-radius: 4px 14px 14px 14px;
+		font-size: 0.95rem;
+		color: var(--text);
+	}
+	.who {
+		display: block;
+		font-size: 0.65rem;
+		letter-spacing: 0.15em;
+		color: var(--green);
+	}
+	@keyframes eye {
+		0%,
+		90%,
+		100% {
+			transform: scaleY(1);
+		}
+		94% {
+			transform: scaleY(0.1);
+		}
+	}
+	.g-eye {
+		transform-box: fill-box;
+		transform-origin: center;
+	}
+</style>

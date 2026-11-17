@@ -17,7 +17,12 @@ const posts = (await getCollection('blog')).sort(
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 		<style>
 			main {
-				width: 960px;
+				width: min(960px, 100% - 2rem);
+			}
+			h1 {
+				font-family: var(--font-display);
+				font-weight: 400;
+				letter-spacing: 0.03em;
 			}
 			ul {
 				display: flex;
@@ -54,19 +59,21 @@ const posts = (await getCollection('blog')).sort(
 			}
 			.title {
 				margin: 0;
-				color: rgb(var(--black));
+				color: var(--heading);
 				line-height: 1;
 			}
 			.date {
 				margin: 0;
-				color: rgb(var(--gray));
+				color: var(--muted);
+				font-family: var(--font-mono);
+				font-size: 0.8rem;
 			}
 			ul li a:hover h4,
 			ul li a:hover .date {
-				color: rgb(var(--accent));
+				color: var(--orange);
 			}
 			ul a:hover img {
-				box-shadow: var(--box-shadow);
+				box-shadow: var(--glow-cyan);
 			}
 			@media (max-width: 720px) {
 				ul {
@@ -89,6 +96,8 @@ const posts = (await getCollection('blog')).sort(
 		<Header />
 		<main>
 			<section>
+				<p class="eyebrow"><span class="t-theme">Lab archive</span><span class="t-plain">Blog</span></p>
+				<h1><span class="t-theme">Field logs</span><span class="t-plain">Writing &amp; projects</span></h1>
 				<ul>
 					{
 						posts.map((post) => (
