@@ -1,0 +1,63 @@
+---
+---
+
+<p>
+	<a class="open-full" href="/llm-tools-comparison.html" target="_blank" rel="noopener">
+		Open full interactive comparison ↗
+	</a>
+</p>
+
+<div class="compare-frame">
+	<iframe
+		src="/llm-tools-comparison.html"
+		title="LiteLLM, Langfuse, and Promptfoo comparison"
+		loading="lazy"
+	></iframe>
+</div>
+
+<style>
+	.open-full {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+		margin: 0.5rem 0 1.25rem;
+		padding: 0.55em 1em;
+		border-radius: 999px;
+		border: 1px solid var(--line-strong);
+		color: var(--heading);
+		text-decoration: none;
+		font-family: var(--font-mono);
+		font-size: 0.85rem;
+	}
+	.open-full:hover {
+		color: var(--orange);
+		border-color: var(--orange);
+	}
+	.compare-frame {
+		width: min(1100px, 100vw - 2rem);
+		margin: 0.5rem 0 2rem;
+		margin-left: max(-1rem, calc(50% - min(550px, 50vw - 1rem)));
+		border: 1px solid var(--line);
+		border-radius: 14px;
+		overflow: hidden;
+		background: #f4f6fa;
+		box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+	}
+	.compare-frame iframe {
+		display: block;
+		width: 100%;
+		height: min(2200px, 85vh);
+		border: 0;
+		background: #f4f6fa;
+	}
+	@media (max-width: 720px) {
+		.compare-frame {
+			margin-left: -1rem;
+			width: calc(100% + 2rem);
+			border-radius: 0;
+		}
+		.compare-frame iframe {
+			height: 70vh;
+		}
+	}
+</style>
